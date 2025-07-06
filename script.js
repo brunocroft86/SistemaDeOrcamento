@@ -54,7 +54,7 @@ if (typeof showSection === "function") oldShowSection = showSection;
 showSection = function (id) {
   if (typeof oldShowSection === "function") oldShowSection(id);
 
-  const basePath = location.pathname.includes('/domains/') ? '../..' : './';
+  const basePath = location.pathname.includes('/domains/') ? '../../' : './';
   const pageMap = {
     'home': basePath + 'index.html',
     'cadastro-cliente': basePath + 'domains/clientes/index.html',
