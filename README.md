@@ -34,7 +34,7 @@ Desenvolvido especialmente para a loja **Amigos Móveis Planejados**.
 ## Dúvidas ou melhorias?
 
 Este sistema foi feito para facilitar a gestão do seu negócio.  
-Se quiser mais funcionalidades (assinatura digital, WhatsApp, impressão, Pix, relatórios, backup, envio para e-mail), acesse o sistema clicando no link [link do site).
+Se quiser mais funcionalidades (assinatura digital, WhatsApp, impressão, Pix, relatórios, backup, envio para e-mail), acesse o sistema clicando no [site oficial](https://exemplo.com).
 
 ---
 
