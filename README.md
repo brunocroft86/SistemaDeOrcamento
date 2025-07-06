@@ -4,6 +4,8 @@ Sistema web simples, moderno e responsivo para **cadastro de clientes**, **cria�
 
 Desenvolvido especialmente para a loja **Amigos Móveis Planejados**.
 
+Você pode testar a aplicação online através do [GitHub Pages](https://joaonascimentobr.github.io/SistemaDeOrcamento/index.html).
+
 ---
 
 ## Funcionalidades
@@ -25,14 +27,18 @@ Desenvolvido especialmente para a loja **Amigos Móveis Planejados**.
 ## Estrutura dos arquivos
 
 - **index.html** — Página inicial com o menu principal
-- **cadastro-cliente.html** — Tela para cadastro e consulta de clientes
-- **novo-orcamento.html** — Formulário para criação de orçamentos
-- **lista-orcamento.html** — Listagem e gestão de orçamentos existentes
+- **clientes/** — Domínio de clientes
+  - **index.html** — Tela para cadastro e consulta de clientes
+  - **cadastro-cliente.js** — Lógica da tela de clientes
+  - **clientes.css** — Estilos específicos do domínio
+- **orcamentos/** — Domínio de orçamentos
+  - **novo-orcamento.html** — Formulário para criação de orçamentos
+  - **lista-orcamento.html** — Listagem e gestão de orçamentos existentes
+  - **novo-orcamento.js** — Rotinas para criar e editar orçamentos
+  - **lista-orcamento.js** — Ações da listagem de orçamentos
+  - **orcamentos.css** — Estilos específicos do domínio
 - **styles.css** — Estilo visual, responsividade, fontes, cores
 - **script.js** — Funções e dados compartilhados
-- **cadastro-cliente.js** — Lógica da tela de cadastro de clientes
-- **novo-orcamento.js** — Rotinas para criar e editar orçamentos
-- **lista-orcamento.js** — Ações da listagem de orçamentos
 - **README.md** — Este arquivo com instruções
 
 ---

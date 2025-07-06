@@ -1,0 +1,6 @@
+/* Estilos específicos do domínio de orçamentos */
+#cadastro-orcamento,
+#lista-orcamento {
+  border-left: 4px solid var(--secondary);
+  padding-left: 10px;
+}
