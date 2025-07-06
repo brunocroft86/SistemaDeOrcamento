@@ -54,12 +54,12 @@ if (typeof showSection === "function") oldShowSection = showSection;
 showSection = function (id) {
   if (typeof oldShowSection === "function") oldShowSection(id);
 
-  const basePath = location.pathname.includes('/clientes/') || location.pathname.includes('/orcamentos/') ? '../' : './';
+  const basePath = location.pathname.includes('/domains/') ? '../..' : './';
   const pageMap = {
     'home': basePath + 'index.html',
-    'cadastro-cliente': basePath + 'clientes/index.html',
-    'cadastro-orcamento': basePath + 'orcamentos/novo-orcamento.html',
-    'lista-orcamento': basePath + 'orcamentos/lista-orcamento.html'
+    'cadastro-cliente': basePath + 'domains/clientes/index.html',
+    'cadastro-orcamento': basePath + 'domains/orcamentos/novo-orcamento.html',
+    'lista-orcamento': basePath + 'domains/orcamentos/lista-orcamento.html'
   };
 
   const el = document.getElementById(id);
