@@ -40,6 +40,45 @@ let clientes = JSON.parse(localStorage.getItem('clientes')) || [];
 let orcamentos = JSON.parse(localStorage.getItem('orcamentos')) || [];
 let orcamentoEditando = null;
 
+// Autocomplete cliente para orçamento
+function filtrarSugestoesCliente() {
+  let busca = document.getElementById('cliente-orcamento-busca').value.toLowerCase().trim();
+  let lista = clientes.map((c,i) => ({
+    idx: i, 
+    label: `${c.nome} ${c.sobrenome} - ${c.cpf} - ${c.telefone}`
+  }));
+  if(busca.length > 0) {
+    lista = lista.filter(c => c.label.toLowerCase().includes(busca));
+  }
+  let sugDiv = document.getElementById('sugestoes-clientes');
+  sugDiv.innerHTML = "";
+  if(lista.length === 0 && busca.length > 0) {
+    let n = document.createElement("div");
+    n.textContent = "Nenhum cliente encontrado.";
+    n.style.color = "#aaa";
+    sugDiv.appendChild(n);
+    document.getElementById('cliente-orcamento-indice').value = "";
+    return;
+  }
+  lista.slice(0,10).forEach(cli => {
+    let d = document.createElement("div");
+    d.textContent = cli.label;
+    d.onclick = function(){
+      document.getElementById('cliente-orcamento-busca').value = cli.label;
+      document.getElementById('cliente-orcamento-indice').value = cli.idx;
+      sugDiv.innerHTML = "";
+    };
+    sugDiv.appendChild(d);
+  });
+}
+
+// Fechar sugestões ao clicar fora
+document.addEventListener('click', function(e){
+  if(!e.target.closest('#cliente-orcamento-busca') && !e.target.closest('#sugestoes-clientes')) {
+    document.getElementById('sugestoes-clientes').innerHTML = "";
+  }
+});
+
 function salvarCliente() {
   const nome = capitalizar(document.getElementById('nome').value.trim());
   const sobrenome = capitalizar(document.getElementById('sobrenome').value.trim());
@@ -56,7 +95,6 @@ function salvarCliente() {
   document.getElementById('telefone').value = '';
   document.getElementById('endereco').value = '';
   atualizarListaClientes();
-  atualizarClientesSelect();
   showAviso("Cliente cadastrado!", "#10b981");
 }
 
@@ -121,7 +159,6 @@ function excluirCliente(idx){
     clientes.splice(idx,1);
     localStorage.setItem('clientes', JSON.stringify(clientes));
     atualizarListaClientes();
-    atualizarClientesSelect();
     showAviso("Cliente removido!", "#ef4444");
   }
 }
@@ -145,8 +182,14 @@ showSection = function(id){
     }, 200); 
   }
   if(id === 'cadastro-orcamento') {
-    atualizarClientesSelect();
+    document.getElementById('cliente-orcamento-busca').value = "";
+    document.getElementById('cliente-orcamento-indice').value = "";
+    document.getElementById('sugestoes-clientes').innerHTML = "";
     if(document.getElementById("itens-orcamento").children.length === 0) adicionarItem();
+    setTimeout(()=>{ 
+      let busca = document.getElementById('cliente-orcamento-busca');
+      if(busca) busca.focus();
+    }, 200); 
   }
   if(id === 'lista-orcamento') {
     atualizarListaOrcamento();
@@ -157,22 +200,7 @@ showSection = function(id){
   }
   if(id !== 'cadastro-orcamento') resetOrcamentoForm();
 }
-function atualizarClientesSelect(selecionadoCPF = null) {
-  const select = document.getElementById('cliente-orcamento');
-  select.innerHTML = '';
-  clientes.forEach((cli, i) => {
-    const opt = document.createElement('option');
-    opt.value = i;
-    opt.textContent = `${cli.nome} ${cli.sobrenome} - ${cli.cpf} - ${cli.telefone}`;
-    if (selecionadoCPF && cli.cpf === selecionadoCPF) opt.selected = true;
-    select.appendChild(opt);
-  });
-  if(clientes.length === 0) {
-    const opt = document.createElement('option');
-    opt.textContent = 'Nenhum cliente';
-    select.appendChild(opt);
-  }
-}
+
 function adicionarItem(descricao = "", valor = "") {
   const container = document.getElementById('itens-orcamento');
   const div = document.createElement('div');
@@ -218,7 +246,8 @@ function atualizarTotalItens() {
 }
 function salvarOrcamento() {
   if(clientes.length === 0) { showAviso("Cadastre um cliente primeiro!","#ef4444"); return; }
-  const idx = document.getElementById('cliente-orcamento').value;
+  const idx = document.getElementById('cliente-orcamento-indice').value;
+  if(idx === "") { showAviso("Escolha o cliente da lista!","#ef4444"); return; }
   const clienteObj = clientes[idx];
   let itens = obterItensForm();
   if (itens.length == 0) { showAviso("Adicione ao menos 1 item!","#ef4444"); return; }
@@ -309,7 +338,12 @@ function removerOrcamento(idx) {
 function editarOrcamento(idx) {
   const orc = orcamentos[idx];
   showSection('cadastro-orcamento');
-  atualizarClientesSelect(orc.cpf);
+  document.getElementById('cliente-orcamento-busca').value = `${orc.cliente} - ${orc.cpf} - ${orc.telefone}`;
+  let index = clientes.findIndex(c=> 
+    `${c.nome} ${c.sobrenome}`.toLowerCase() === orc.cliente.toLowerCase() && c.cpf === orc.cpf
+  );
+  document.getElementById('cliente-orcamento-indice').value = index >=0 ? index : "";
+  document.getElementById('sugestoes-clientes').innerHTML = "";
   const itensDiv = document.getElementById('itens-orcamento');
   itensDiv.innerHTML = '';
   orc.itens.forEach(it => adicionarItem(it.descricao, "R$ "+Number(it.valor).toLocaleString('pt-BR', {minimumFractionDigits:2})));

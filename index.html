@@ -46,8 +46,10 @@
     <!-- Cadastro Orçamento -->
     <div class="card" id="cadastro-orcamento" style="display:none">
       <h2 id="orcamento-titulo">Novo orçamento</h2>
-      <label for="cliente-orcamento">Cliente</label>
-      <select id="cliente-orcamento"></select>
+      <label for="cliente-orcamento-busca">Cliente</label>
+      <input type="text" id="cliente-orcamento-busca" placeholder="Pesquisar cliente por nome ou CPF..." autocomplete="off" oninput="filtrarSugestoesCliente()" onfocus="filtrarSugestoesCliente()">
+      <div id="sugestoes-clientes" class="autocomplete-list"></div>
+      <input type="hidden" id="cliente-orcamento-indice">
       <div class="itens-orcamento" id="itens-orcamento"></div>
       <div class="itens-lista-total" id="itens-lista-total"></div>
       <button type="button" class="add-item-btn" onclick="adicionarItem()">Adicionar item</button>
@@ -66,7 +68,7 @@
   </div>
   <script src="script.js"></script>
   <footer style="text-align:center;font-size:.96em;padding:15px 7px 11px 7px;color:#6c584c; background:#f9fafb;">
-    Sistema desenvolvido para <b class="capitalize">Amigos Móveis Planejados</b> — Powered by <a href="https://gptonline.ai/" target="_blank">gptonline.ai</a>
+    Sistema desenvolvido por <b class="capitalize">João & Bruno!</b>
   </footer>
 </body>
 </html>
