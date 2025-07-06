@@ -36,8 +36,17 @@ function showAviso(msg, cor = "#2563eb") {
   }, 2100);
 }
 
-let clientes = JSON.parse(localStorage.getItem('clientes')) || [];
-let orcamentos = JSON.parse(localStorage.getItem('orcamentos')) || [];
+let clientes, orcamentos;
+try {
+  clientes = JSON.parse(localStorage.getItem('clientes')) || [];
+} catch (e) {
+  clientes = [];
+}
+try {
+  orcamentos = JSON.parse(localStorage.getItem('orcamentos')) || [];
+} catch (e) {
+  orcamentos = [];
+}
 let orcamentoEditando = null;
 
 // Autocomplete cliente para orçamento
