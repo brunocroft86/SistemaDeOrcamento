@@ -17,6 +17,25 @@ function capitalizar(str) {
   return str.replace(/\b\w/g, l => l.toUpperCase()).replace(/\s+/g, ' ').trim();
 }
 
+// Função de aviso elegante no topo
+function showAviso(msg, cor = "#2563eb") {
+  let aviso = document.getElementById("aviso-msg");
+  if (!aviso) {
+    aviso = document.createElement("div");
+    aviso.id = "aviso-msg";
+    aviso.style = "position:fixed;top:0;left:0;right:0;z-index:99;display:flex;align-items:center;justify-content:center;font-weight:500;font-size:1.08em;background:" + cor + ";color:#fff;padding:13px 7px;box-shadow:0 2px 10px #0001;transition:top .3s; border-radius:0 0 18px 18px;min-height:35px;letter-spacing:.02em;";
+    document.body.prepend(aviso);
+  }
+  aviso.textContent = msg;
+  aviso.style.background = cor;
+  aviso.style.display = "flex";
+  aviso.style.top = "0";
+  setTimeout(() => {
+    aviso.style.top = "-60px";
+    setTimeout(()=>{aviso.style.display="none"},400);
+  }, 2100);
+}
+
 let clientes = JSON.parse(localStorage.getItem('clientes')) || [];
 let orcamentos = JSON.parse(localStorage.getItem('orcamentos')) || [];
 let orcamentoEditando = null;
@@ -27,8 +46,8 @@ function salvarCliente() {
   const cpf = document.getElementById('cpf').value.trim();
   const telefone = document.getElementById('telefone').value.trim();
   const endereco = capitalizar(document.getElementById('endereco').value.trim());
-  if(!nome || !sobrenome || !cpf || !telefone || !endereco) { alert("Preencha todos os campos!"); return; }
-  if (clientes.find(c => c.cpf === cpf)) { alert("CPF já cadastrado!"); return; }
+  if(!nome || !sobrenome || !cpf || !telefone || !endereco) { showAviso("Preencha todos os campos!", "#ef4444"); return; }
+  if (clientes.find(c => c.cpf === cpf)) { showAviso("CPF já cadastrado!", "#eab308"); return; }
   clientes.push({nome, sobrenome, cpf, telefone, endereco});
   localStorage.setItem('clientes', JSON.stringify(clientes));
   document.getElementById('nome').value = '';
@@ -38,7 +57,7 @@ function salvarCliente() {
   document.getElementById('endereco').value = '';
   atualizarListaClientes();
   atualizarClientesSelect();
-  alert("Cliente cadastrado!");
+  showAviso("Cliente cadastrado!", "#10b981");
 }
 
 function atualizarListaClientes() {
@@ -103,6 +122,7 @@ function excluirCliente(idx){
     localStorage.setItem('clientes', JSON.stringify(clientes));
     atualizarListaClientes();
     atualizarClientesSelect();
+    showAviso("Cliente removido!", "#ef4444");
   }
 }
 
@@ -115,12 +135,26 @@ showSection = function(id){
   document.getElementById('cadastro-orcamento').style.display = 'none';
   document.getElementById('lista-orcamento').style.display = 'none';
   document.getElementById(id).style.display = 'block';
-  if(id === 'cadastro-cliente'){ fecharClienteDetalhe(); atualizarListaClientes(); }
+  // Focar pesquisa automaticamente em mobile
+  if(id === 'cadastro-cliente'){ 
+    fecharClienteDetalhe(); 
+    atualizarListaClientes(); 
+    setTimeout(()=>{ 
+      let busca = document.getElementById('buscaCliente');
+      if(busca) busca.focus();
+    }, 200); 
+  }
   if(id === 'cadastro-orcamento') {
     atualizarClientesSelect();
     if(document.getElementById("itens-orcamento").children.length === 0) adicionarItem();
   }
-  if(id === 'lista-orcamento') atualizarListaOrcamento();
+  if(id === 'lista-orcamento') {
+    atualizarListaOrcamento();
+    setTimeout(()=>{ 
+      let busca = document.getElementById('search');
+      if(busca) busca.focus();
+    }, 200);
+  }
   if(id !== 'cadastro-orcamento') resetOrcamentoForm();
 }
 function atualizarClientesSelect(selecionadoCPF = null) {
@@ -183,11 +217,11 @@ function atualizarTotalItens() {
   document.getElementById('itens-lista-total').textContent = itens.length>0 ? "Total deste orçamento: " + formatarReal(total) : "";
 }
 function salvarOrcamento() {
-  if(clientes.length === 0) { alert("Cadastre um cliente primeiro!"); return; }
+  if(clientes.length === 0) { showAviso("Cadastre um cliente primeiro!","#ef4444"); return; }
   const idx = document.getElementById('cliente-orcamento').value;
   const clienteObj = clientes[idx];
   let itens = obterItensForm();
-  if (itens.length == 0) { alert("Adicione ao menos 1 item!"); return; }
+  if (itens.length == 0) { showAviso("Adicione ao menos 1 item!","#ef4444"); return; }
   let total = itens.reduce((sum, it) => sum + it.valor, 0);
   if (orcamentoEditando !== null) {
     orcamentos[orcamentoEditando] = {
@@ -198,7 +232,7 @@ function salvarOrcamento() {
       itens,
       total
     };
-    alert("Orçamento atualizado!");
+    showAviso("Orçamento atualizado!", "#10b981");
   } else {
     orcamentos.push({
       cliente: capitalizar(clienteObj.nome + " " + clienteObj.sobrenome),
@@ -208,7 +242,7 @@ function salvarOrcamento() {
       itens,
       total
     });
-    alert("Orçamento inserido!");
+    showAviso("Orçamento inserido!", "#10b981");
   }
   localStorage.setItem('orcamentos', JSON.stringify(orcamentos));
   resetOrcamentoForm();
@@ -228,7 +262,6 @@ function atualizarListaOrcamento() {
   const ul = document.getElementById('orcamento-list');
   const search = document.getElementById('search').value.trim().toLowerCase();
   let filtrados = orcamentos.map((o, idx) => ({...o, idx}));
-  // Pesquisar só por nome ou cpf:
   if (search.length > 0) {
     filtrados = filtrados.filter(orc => 
       (orc.cliente && orc.cliente.toLowerCase().includes(search)) ||
@@ -270,6 +303,7 @@ function removerOrcamento(idx) {
     orcamentos.splice(idx, 1);
     localStorage.setItem('orcamentos', JSON.stringify(orcamentos));
     atualizarListaOrcamento();
+    showAviso("Orçamento removido!", "#ef4444");
   }
 }
 function editarOrcamento(idx) {
@@ -291,9 +325,9 @@ function compartilharOrcamento(idx) {
   const loja = "AMIGOS MÓVEIS PLANEJADOS";
   const data = new Date().toLocaleDateString("pt-BR");
   let recibo = 
-`
+`╔════════════════════════╗
         ${loja}
-
+╚════════════════════════╝
 
 Recibo Eletrônico - Orçamento
 
@@ -321,9 +355,9 @@ Agradecemos pela preferência!
     }).catch(() => {});
   } else if (navigator.clipboard) {
     navigator.clipboard.writeText(recibo).then(() => {
-      alert("Nota eletrônica copiada para a área de transferência!");
+      showAviso("Nota eletrônica copiada!", "#10b981");
     }, () => {
-      alert("Erro ao copiar. Tente manualmente.");
+      showAviso("Erro ao copiar. Tente manualmente.", "#ef4444");
     });
   } else {
     prompt("Copie a nota eletrônica:", recibo);
@@ -350,6 +384,7 @@ function exportarCSV() {
   link.href = window.URL.createObjectURL(blob);
   link.download = 'orcamentos_amigos_moveis_planejados.csv';
   link.click();
+  showAviso("Exportado com sucesso!", "#10b981");
 }
 document.addEventListener('DOMContentLoaded', ()=>{
   atualizarListaClientes();

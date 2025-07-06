@@ -111,6 +111,29 @@ hr { border: none; border-bottom: 1.2px solid #fbbf24; margin: 20px 0 12px 0;}
 .capitalize, .orcamento-item b, .orcamento-item ul li, .orcamento-item span, .header-logo {
   text-transform: capitalize;
 }
+
+/* Avisos no topo */
+#aviso-msg {
+  position: fixed;
+  top: 0;
+  left: 0; right: 0;
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 1.08em;
+  background: #2563eb;
+  color: #fff;
+  padding: 13px 7px;
+  box-shadow: 0 2px 10px #0001;
+  transition: top .3s;
+  border-radius: 0 0 18px 18px;
+  min-height: 35px;
+  letter-spacing: .02em;
+  display: none;
+}
+
 @media (max-width: 390px) {
   .card, .container { padding-left: 3px; padding-right: 3px;}
   .orcamento-item { padding-left: 4px; padding-right: 4px;}
