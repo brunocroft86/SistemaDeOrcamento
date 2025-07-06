@@ -27,16 +27,17 @@ Você pode testar a aplicação online através do [GitHub Pages](https://joaona
 ## Estrutura dos arquivos
 
 - **index.html** — Página inicial com o menu principal
-- **clientes/** — Domínio de clientes
-  - **index.html** — Tela para cadastro e consulta de clientes
-  - **cadastro-cliente.js** — Lógica da tela de clientes
-  - **clientes.css** — Estilos específicos do domínio
-- **orcamentos/** — Domínio de orçamentos
-  - **novo-orcamento.html** — Formulário para criação de orçamentos
-  - **lista-orcamento.html** — Listagem e gestão de orçamentos existentes
-  - **novo-orcamento.js** — Rotinas para criar e editar orçamentos
-  - **lista-orcamento.js** — Ações da listagem de orçamentos
-  - **orcamentos.css** — Estilos específicos do domínio
+- **domains/** — Agrupa todos os domínios
+  - **clientes/** — Domínio de clientes
+    - **index.html** — Tela para cadastro e consulta de clientes
+    - **cadastro-cliente.js** — Lógica da tela de clientes
+    - **clientes.css** — Estilos específicos do domínio
+  - **orcamentos/** — Domínio de orçamentos
+    - **novo-orcamento.html** — Formulário para criação de orçamentos
+    - **lista-orcamento.html** — Listagem e gestão de orçamentos existentes
+    - **novo-orcamento.js** — Rotinas para criar e editar orçamentos
+    - **lista-orcamento.js** — Ações da listagem de orçamentos
+    - **orcamentos.css** — Estilos específicos do domínio
 - **styles.css** — Estilo visual, responsividade, fontes, cores
 - **script.js** — Funções e dados compartilhados
 - **README.md** — Este arquivo com instruções
