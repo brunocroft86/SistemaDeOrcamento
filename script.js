@@ -47,6 +47,7 @@ function filtrarSugestoesCliente() {
     idx: i, 
     label: `${c.nome} ${c.sobrenome} - ${c.cpf} - ${c.telefone}`
   }));
+  // Filtra se houver busca
   if(busca.length > 0) {
     lista = lista.filter(c => c.label.toLowerCase().includes(busca));
   }
@@ -185,11 +186,17 @@ showSection = function(id){
     document.getElementById('cliente-orcamento-busca').value = "";
     document.getElementById('cliente-orcamento-indice').value = "";
     document.getElementById('sugestoes-clientes').innerHTML = "";
+    if (clientes.length === 1) {
+      const unico = clientes[0];
+      document.getElementById('cliente-orcamento-busca').value = `${unico.nome} ${unico.sobrenome} - ${unico.cpf} - ${unico.telefone}`;
+      document.getElementById('cliente-orcamento-indice').value = 0;
+    }
     if(document.getElementById("itens-orcamento").children.length === 0) adicionarItem();
     setTimeout(()=>{ 
       let busca = document.getElementById('cliente-orcamento-busca');
       if(busca) busca.focus();
     }, 200); 
+    filtrarSugestoesCliente();
   }
   if(id === 'lista-orcamento') {
     atualizarListaOrcamento();
@@ -420,6 +427,18 @@ function exportarCSV() {
   link.click();
   showAviso("Exportado com sucesso!", "#10b981");
 }
+
 document.addEventListener('DOMContentLoaded', ()=>{
   atualizarListaClientes();
+  // Garante sugestões sempre no mobile (Android/iOS)
+  let campo = document.getElementById('cliente-orcamento-busca');
+  if (campo) {
+    campo.addEventListener('touchend', function(){
+      setTimeout(filtrarSugestoesCliente, 80); // Espera foco para teclado abrir
+    }, false);
+    campo.addEventListener('focus', function(){
+      setTimeout(filtrarSugestoesCliente, 80);
+    }, false);
+    campo.addEventListener('input', filtrarSugestoesCliente, false);
+  }
 });
