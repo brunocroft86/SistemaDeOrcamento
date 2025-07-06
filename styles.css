@@ -1,0 +1,118 @@
+:root {
+  --primary: #1e40af;
+  --secondary: #fbbf24;
+  --wood: #fff7ed;
+  --card: #fff;
+  --border: #e5e7eb;
+  --shadow: 0 4px 16px rgba(0,0,0,0.06);
+  --radius: 17px;
+  --danger: #ef4444;
+  --edit: #eab308;
+  --success: #10b981;
+  --font1: 'Segoe UI', Arial, sans-serif;
+}
+body {
+  margin: 0; background: var(--wood); color: #222; font-family: var(--font1);
+  min-height: 100vh;
+}
+.header {
+  background: linear-gradient(90deg, #fbbf24 0%, #f1c67a 60%, #fff7ed 100%);
+  padding: 24px 10px 20px 10px; text-align: center;
+  border-bottom: 1.5px solid #fcd34d;
+  box-shadow: 0 3px 12px #0001;
+  margin-bottom: 16px;
+}
+.header-logo {
+  font-weight: bold; font-size: 1.35em; color: #1e293b; letter-spacing: 1.1px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin-bottom: 4px;
+}
+.header-desc {
+  font-size: 0.98em; color: #636363;
+  letter-spacing: .05em; margin-top: 2px;
+}
+.container { max-width: 440px; margin: auto; padding: 0 8px; }
+.card {
+  background: var(--card); border-radius: var(--radius);
+  box-shadow: var(--shadow); margin-bottom: 26px; padding: 24px 14px;
+}
+h2 {
+  font-size: 1.11rem; margin-top: 0; margin-bottom: 17px; text-align: center;
+  color: var(--primary); letter-spacing: .05em;
+}
+.menu button {
+  width: 100%; background: var(--primary); color: #fff; border: none;
+  border-radius: var(--radius); padding: 14px; font-size: 1.1rem;
+  margin-bottom: 11px; transition: background 0.22s;
+  font-weight: 500; letter-spacing: .02em;
+}
+.menu button:active { background: #172554; }
+label { display: block; margin-bottom: 4px; font-size: 1rem; font-weight: 500; }
+input, select {
+  width: 100%; padding: 10px; margin-bottom: 12px; border-radius: var(--radius);
+  border: 1px solid var(--border); font-size: 1rem; box-sizing: border-box;
+  background: #f9fafb;
+}
+.form-btn {
+  width: 100%; background: var(--primary); color: #fff; border: none;
+  border-radius: var(--radius); padding: 12px; font-size: 1rem;
+  margin-top: 6px; margin-bottom: 7px; transition: background 0.22s;
+  font-weight: 500; letter-spacing: .01em;
+}
+.form-btn:active { background: #172554; }
+.orcamento-list { list-style: none; padding: 0; margin: 0; }
+.orcamento-item {
+  background: #f9fafb; border-radius: var(--radius);
+  margin-bottom: 12px; padding: 14px 11px 11px 11px; box-shadow: 0 2px 6px #0001; position: relative;
+  border-left: 4px solid var(--primary);
+}
+.orcamento-actions {
+  display: flex; gap: 8px; margin-top: 9px; flex-wrap: wrap;
+}
+.btn-edit, .btn-delete, .btn-share {
+  border: none; border-radius: 9px; padding: 7px 14px; font-size: 0.98em; cursor: pointer;
+  color: #fff; transition: opacity 0.2s; display: flex; align-items: center; gap: 2px;
+  font-weight: 500;
+}
+.btn-edit { background: var(--edit);}
+.btn-delete { background: var(--danger);}
+.btn-share { background: var(--success);}
+.btn-edit:active, .btn-delete:active, .btn-share:active { opacity: 0.8;}
+.search-box { margin-bottom: 12px; font-size: 1em;}
+.total-soma {
+  margin: 17px 0 11px 0; padding: 10px; background: #f0e7cf; border-radius: var(--radius);
+  font-weight: bold; text-align: center; font-size: 1.07em; border: 1px solid #ffe4a3;
+  color: #512900;
+}
+.btn-export {
+  background: var(--success); color: #fff; border: none; border-radius: var(--radius);
+  padding: 11px 16px; font-size: 1em; margin-bottom: 10px; width: 100%; margin-top: 2px; cursor: pointer; transition: opacity .2s;
+  font-weight: 500;
+}
+.btn-export:active { opacity: 0.7; }
+.itens-orcamento { margin-bottom: 16px; }
+.item-fields { display: flex; gap: 8px; }
+.item-fields input[type="text"] { flex: 2; }
+.item-fields input[type="text"].valor { flex: 1.2; }
+.remove-item-btn {
+  background: var(--danger); color: #fff; border: none; border-radius: 9px; padding: 5px 10px;
+  font-size: 1.03em; cursor: pointer; margin-left: 3px;
+}
+.add-item-btn {
+  background: var(--primary); color: #fff; border: none; border-radius: 9px; padding: 8px 13px;
+  font-size: 0.98em; cursor: pointer; margin-bottom: 13px; font-weight: 500;
+}
+.itens-lista-total {
+  font-size: .98em; text-align: right; margin-top: 5px; margin-bottom: 2px;
+  color: #1e293b;
+}
+hr { border: none; border-bottom: 1.2px solid #fbbf24; margin: 20px 0 12px 0;}
+/* Capitalizar iniciais */
+.capitalize, .orcamento-item b, .orcamento-item ul li, .orcamento-item span, .header-logo {
+  text-transform: capitalize;
+}
+@media (max-width: 390px) {
+  .card, .container { padding-left: 3px; padding-right: 3px;}
+  .orcamento-item { padding-left: 4px; padding-right: 4px;}
+}
+@media (min-width: 600px) { .container { max-width: 510px; } }
