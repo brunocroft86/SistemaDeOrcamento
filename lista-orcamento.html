@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Amigos Móveis Planejados - Orçamentos</title>
+  <title>Orçamentos - Amigos Móveis Planejados</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,17 +12,17 @@
     <div class="header-desc">Gestão fácil de clientes e orçamentos<br>Móveis sob medida com confiança.</div>
   </div>
   <div class="container">
-    <!-- Home/Menu -->
-    <div class="card" id="home">
-      <h2>Menu</h2>
-      <div class="menu">
-        <button onclick="showSection('cadastro-cliente')">Cadastro de cliente</button>
-        <button onclick="showSection('cadastro-orcamento')">Novo orçamento</button>
-        <button onclick="showSection('lista-orcamento')">Listar orçamentos</button>
-      </div>
+    <div class="card" id="lista-orcamento">
+      <h2>Orçamentos realizados</h2>
+      <button class="btn-export" onclick="exportarCSV()">Exportar para Excel (CSV)</button>
+      <input class="search-box" type="text" id="search" placeholder="Pesquisar por nome ou CPF..." oninput="atualizarListaOrcamento()">
+      <div id="soma-total" class="total-soma"></div>
+      <ul class="orcamento-list" id="orcamento-list"></ul>
+      <button class="form-btn" style="background:#fbbf24;color:#1e293b" onclick="showSection('home')">Voltar ao Menu</button>
     </div>
   </div>
   <script src="script.js"></script>
+  <script src="lista-orcamento.js"></script>
   <footer style="text-align:center;font-size:.96em;padding:15px 7px 11px 7px;color:#6c584c; background:#f9fafb;">
     Sistema desenvolvido por <b class="capitalize">João & Bruno</b>
   </footer>

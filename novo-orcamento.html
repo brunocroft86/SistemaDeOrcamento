@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Novo Orçamento - Amigos Móveis Planejados</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="header">
+    <div class="header-logo capitalize">Amigos Móveis Planejados</div>
+    <div class="header-desc">Gestão fácil de clientes e orçamentos<br>Móveis sob medida com confiança.</div>
+  </div>
+  <div class="container">
+    <div class="card" id="cadastro-orcamento">
+      <h2 id="orcamento-titulo">Novo orçamento</h2>
+      <label for="cliente-orcamento-busca">Cliente</label>
+      <input type="text" id="cliente-orcamento-busca" placeholder="Pesquisar cliente por nome ou CPF..." autocomplete="off">
+      <div id="sugestoes-clientes" class="autocomplete-list"></div>
+      <input type="hidden" id="cliente-orcamento-indice">
+      <div class="itens-orcamento" id="itens-orcamento"></div>
+      <div class="itens-lista-total" id="itens-lista-total"></div>
+      <button type="button" class="add-item-btn" onclick="adicionarItem()">Adicionar item</button>
+      <button class="form-btn" id="btn-inserir-editar" onclick="salvarOrcamento()">Inserir</button>
+      <button class="form-btn" style="background:#fbbf24;color:#1e293b" onclick="showSection('home');resetOrcamentoForm()">Voltar ao Menu</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+  <script src="novo-orcamento.js"></script>
+  <footer style="text-align:center;font-size:.96em;padding:15px 7px 11px 7px;color:#6c584c; background:#f9fafb;">
+    Sistema desenvolvido por <b class="capitalize">João & Bruno</b>
+  </footer>
+</body>
+</html>
