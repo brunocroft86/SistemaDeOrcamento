@@ -1,0 +1,5 @@
+/* Estilos específicos do domínio de clientes */
+#cadastro-cliente {
+  border-left: 4px solid var(--primary);
+  padding-left: 10px;
+}
