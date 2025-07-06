@@ -17,7 +17,6 @@ Você pode testar a aplicação online através do [GitHub Pages](https://joaona
 - Valores formatados automaticamente em reais (R$)
 - Pesquisa de orçamentos por **Nome** ou **CPF**
 - Edição e remoção de orçamentos e clientes
-- Exportação de orçamentos para **Excel/CSV**
 - Compartilhamento de orçamentos como **nota eletrônica** (copia texto ou usa nativo do telemóvel)
 - Design responsivo e visual limpo, otimizado para dispositivos móveis
 - Todas as iniciais de nomes e endereços são sempre maiúsculas

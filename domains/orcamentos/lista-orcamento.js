@@ -90,28 +90,6 @@ Agradecemos pela preferência!
     prompt("Copie a nota eletrônica:", recibo);
   }
 }
-function exportarCSV() {
-  let csv = 'Cliente,CPF,Telefone,Endereço,Itens,Total\n';
-  const search = document.getElementById('search').value.trim().toLowerCase();
-  let filtrados = orcamentos;
-  if (search.length > 0) {
-    filtrados = orcamentos.filter(orc =>
-      (orc.cliente && orc.cliente.toLowerCase().includes(search)) ||
-      (orc.cpf && orc.cpf.replace(/\D/g,"").includes(search.replace(/\D/g,"")))
-    );
-  }
-  filtrados.forEach(orc => {
-    let itensStr = orc.itens.map(it=>`${capitalizar(it.descricao)}: ${formatarReal(it.valor)}`).join(' | ');
-    let linha = `"${capitalizar(orc.cliente)}","${orc.cpf}","${orc.telefone}","${capitalizar(orc.endereco)}","${itensStr}","${formatarReal(orc.total)}"`;
-    csv += linha + "\n";
-  });
-  const blob = new Blob([csv], { type: 'text/csv' });
-  const link = document.createElement('a');
-  link.href = window.URL.createObjectURL(blob);
-  link.download = 'orcamentos_amigos_moveis_planejados.csv';
-  link.click();
-  showAviso("Exportado com sucesso!", "#10b981");
-}
 
 document.addEventListener('DOMContentLoaded', () => {
   atualizarListaOrcamento();
