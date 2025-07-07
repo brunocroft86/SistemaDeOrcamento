@@ -36,6 +36,10 @@ Você pode testar a aplicação online através do [GitHub Pages](https://brunoc
 - **styles.css** — Estilo visual e cores (compartilhado)
 - **README.md** — Este arquivo
 
+## Desenvolvimento em container
+
+Para usar o ambiente de desenvolvimento do **Dev Containers** no VS Code, abra a pasta do projeto e escolha **Reopen in Container**. O VS Code montará o container a partir da imagem definida em `.devcontainer/devcontainer.json` e executará `npm install` automaticamente.
+
 ---
 
 ## Dúvidas ou melhorias?
