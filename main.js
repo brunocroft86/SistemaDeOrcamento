@@ -5,7 +5,12 @@ const vuetify = createVuetify();
 
 const app = createApp({
   data() {
-    return { section: 'home' };
+    return {
+      section: 'home',
+      snackbar: { show: false, msg: '', color: 'primary' },
+      clientesOptions: [],
+      clienteSelecionado: null
+    };
   },
   methods: {
     go(sec) { showSection(sec); }
@@ -50,9 +55,16 @@ const app = createApp({
 
         <div class="card" id="cadastro-orcamento" v-show="section === 'cadastro-orcamento'">
           <h2 id="orcamento-titulo">Novo orçamento</h2>
-          <v-text-field label="Cliente" id="cliente-orcamento-busca" placeholder="Pesquisar cliente por nome ou CPF..." autocomplete="off"></v-text-field>
-          <div id="sugestoes-clientes" class="autocomplete-list"></div>
-          <input type="hidden" id="cliente-orcamento-indice">
+          <v-autocomplete
+            id="cliente-orcamento-autocomplete"
+            label="Cliente"
+            :items="clientesOptions"
+            item-title="label"
+            item-value="idx"
+            v-model="clienteSelecionado"
+            placeholder="Pesquisar cliente por nome ou CPF..."
+            autocomplete="off"
+          ></v-autocomplete>
           <div class="itens-orcamento" id="itens-orcamento"></div>
           <div class="itens-lista-total" id="itens-lista-total"></div>
           <v-btn type="button" class="add-item-btn" onclick="adicionarItem()">Adicionar item</v-btn>
@@ -85,6 +97,9 @@ const app = createApp({
         </div>
       </div>
     </v-main>
+    <v-snackbar v-model="snackbar.show" :color="snackbar.color" timeout="2100">
+      {{ snackbar.msg }}
+    </v-snackbar>
     <footer style="text-align:center;font-size:.96em;padding:15px 7px 11px 7px;color:#6c584c; background:#f9fafb;">
       Sistema desenvolvido por <b class="capitalize">João & Bruno</b>
     </footer>
