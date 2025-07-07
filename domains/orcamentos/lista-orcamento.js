@@ -93,7 +93,7 @@ Agradecemos pela preferência!
 }
 
 function verOrcamento(idx) {
-  window.location.href = `orcamento/index.html?idx=${idx}`;
+  window.location.href = `../../index.html?sec=orcamento-cliente&idx=${idx}`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {

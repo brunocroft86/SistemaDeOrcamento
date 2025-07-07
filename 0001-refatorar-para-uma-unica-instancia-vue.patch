@@ -1,0 +1,491 @@
+From 4c2ee7d56555c4802291c3c7c25158a6059f3d75 Mon Sep 17 00:00:00 2001
+From: Codex <codex@openai.com>
+Date: Mon, 7 Jul 2025 02:56:14 +0000
+Subject: [PATCH] Applying previous commit.
+
+---
+ README.md                               |  30 +++----
+ domains/clientes/index.html             |  41 +---------
+ domains/orcamentos/lista-orcamento.html |  27 +------
+ domains/orcamentos/lista-orcamento.js   |   2 +-
+ domains/orcamentos/novo-orcamento.html  |  32 +-------
+ domains/orcamentos/orcamento/index.html |  30 ++-----
+ domains/termos/index.html               |  30 +------
+ index.html                              |  33 ++++----
+ main.js                                 | 102 ++++++++++++++++++++++++
+ script.js                               |  24 +-----
+ 10 files changed, 156 insertions(+), 195 deletions(-)
+ create mode 100644 main.js
+
+diff --git a/README.md b/README.md
+index 88a58f1..f3c6c51 100644
+--- a/README.md
++++ b/README.md
+@@ -1,5 +1,7 @@
+ # Amigos Móveis Planejados — Sistema de Orçamentos
+ 
++Agora utilizando **Vue 3** e **Vuetify 3** em uma única aplicação SPA para uma experiência moderna.
++
+ Sistema web simples, moderno e responsivo para **cadastro de clientes**, **criação de orçamentos** e **gestão de vendas**.
+ 
+ Desenvolvido especialmente para a loja **Amigos Móveis Planejados**.
+@@ -25,24 +27,24 @@ Você pode testar a aplicação online através do [GitHub Pages](https://joaona
+ 
+ ## Estrutura dos arquivos
+ 
+-- **index.html** — Página inicial com o menu principal
+-- **domains/** — Agrupa todos os domínios
+-  - **clientes/** — Domínio de clientes
+-    - **index.html** — Tela para cadastro e consulta de clientes
+-    - **cadastro-cliente.js** — Lógica da tela de clientes
+-    - **clientes.css** — Estilos específicos do domínio
+-  - **orcamentos/** — Domínio de orçamentos
+-    - **novo-orcamento.html** — Formulário para criação de orçamentos
+-    - **lista-orcamento.html** — Listagem e gestão de orçamentos existentes
+-    - **orcamento/** — Subdomínio para visualizar o orçamento de um cliente
+-      - **index.html** — Página com os detalhes do orçamento
++- **index.html** — Ponto de entrada da SPA e única página com Vue
++- **domains/** — Scripts e estilos de cada domínio
++  - **clientes/**
++    - **index.html** — Redireciona para `index.html?sec=cadastro-cliente`
++    - **cadastro-cliente.js** — Lógica de clientes
++    - **clientes.css** — Estilos do domínio
++  - **orcamentos/**
++    - **novo-orcamento.html** — Redireciona para `index.html?sec=cadastro-orcamento`
++    - **lista-orcamento.html** — Redireciona para `index.html?sec=lista-orcamento`
++    - **orcamento/**
++      - **index.html** — Redireciona para `index.html?sec=orcamento-cliente&idx=`
+       - **orcamento.js** — Script do orçamento individual
+     - **novo-orcamento.js** — Rotinas para criar e editar orçamentos
+     - **lista-orcamento.js** — Ações da listagem de orçamentos
+-    - **orcamentos.css** — Estilos específicos do domínio
+-- **styles.css** — Estilo visual, responsividade, fontes, cores
++    - **orcamentos.css** — Estilos do domínio
++- **styles.css** — Estilo visual e cores
+ - **script.js** — Funções e dados compartilhados
+-- **README.md** — Este arquivo com instruções
++- **README.md** — Este arquivo
+ 
+ ---
+ 
+diff --git a/domains/clientes/index.html b/domains/clientes/index.html
+index 88402c3..c41c09e 100644
+--- a/domains/clientes/index.html
++++ b/domains/clientes/index.html
+@@ -2,43 +2,8 @@
+ <html lang="pt">
+ <head>
+   <meta charset="UTF-8">
+-  <meta name="viewport" content="width=device-width, initial-scale=1">
+-  <title>Cadastro de Cliente - Amigos Móveis Planejados</title>
+-  <link rel="stylesheet" href="../../styles.css">
+-  <link rel="stylesheet" href="clientes.css">
++  <title>Cadastro de Cliente</title>
++  <meta http-equiv="refresh" content="0; url=../../index.html?sec=cadastro-cliente">
+ </head>
+-<body>
+-  <div class="header">
+-    <div class="header-logo capitalize">Amigos Móveis Planejados</div>
+-    <div class="header-desc">Gestão fácil de clientes e orçamentos<br>Móveis sob medida com confiança.</div>
+-  </div>
+-  <div class="container">
+-    <div class="card" id="cadastro-cliente">
+-      <h2>Cadastro de cliente</h2>
+-      <div id="cliente-detalhe" style="display:none;"></div>
+-      <div id="form-cadastro-cliente">
+-        <label for="nome">Nome</label>
+-        <input type="text" id="nome" placeholder="Nome">
+-        <label for="sobrenome">Sobrenome</label>
+-        <input type="text" id="sobrenome" placeholder="Sobrenome">
+-        <label for="cpf">CPF</label>
+-        <input type="text" id="cpf" placeholder="CPF (somente números)" maxlength="14" oninput="formatCPF(this)">
+-        <label for="telefone">Telefone</label>
+-        <input type="text" id="telefone" placeholder="(XX) XXXXX-XXXX" maxlength="15" oninput="formatTelefone(this)">
+-        <label for="endereco">Endereço</label>
+-        <input type="text" id="endereco" placeholder="Rua, Número, Bairro, Cidade">
+-        <button class="form-btn" onclick="salvarCliente()">Salvar</button>
+-        <hr>
+-        <input type="text" id="buscaCliente" class="search-box" placeholder="Buscar cliente (nome, cpf, tel, endereço)..." oninput="atualizarListaClientes()">
+-        <ul id="lista-clientes" style="list-style:none; padding:0; margin:0;"></ul>
+-        <button class="form-btn" style="background:#fbbf24;color:#1e293b" onclick="showSection('home')">Voltar ao Menu</button>
+-      </div>
+-    </div>
+-  </div>
+-  <script src="../../script.js"></script>
+-  <script src="cadastro-cliente.js"></script>
+-  <footer style="text-align:center;font-size:.96em;padding:15px 7px 11px 7px;color:#6c584c; background:#f9fafb;">
+-    Sistema desenvolvido por <b class="capitalize">João & Bruno</b>
+-  </footer>
+-</body>
++<body>Redirecionando...</body>
+ </html>
+diff --git a/domains/orcamentos/lista-orcamento.html b/domains/orcamentos/lista-orcamento.html
+index 7e818d1..e752950 100644
+--- a/domains/orcamentos/lista-orcamento.html
++++ b/domains/orcamentos/lista-orcamento.html
+@@ -2,29 +2,8 @@
+ <html lang="pt">
+ <head>
+   <meta charset="UTF-8">
+-  <meta name="viewport" content="width=device-width, initial-scale=1">
+-  <title>Orçamentos - Amigos Móveis Planejados</title>
+-  <link rel="stylesheet" href="../../styles.css">
+-  <link rel="stylesheet" href="orcamentos.css">
++  <title>Listar Orçamentos</title>
++  <meta http-equiv="refresh" content="0; url=../../index.html?sec=lista-orcamento">
+ </head>
+-<body>
+-  <div class="header">
+-    <div class="header-logo capitalize">Amigos Móveis Planejados</div>
+-    <div class="header-desc">Gestão fácil de clientes e orçamentos<br>Móveis sob medida com confiança.</div>
+-  </div>
+-  <div class="container">
+-    <div class="card" id="lista-orcamento">
+-      <h2>Orçamentos realizados</h2>
+-      <input class="search-box" type="text" id="search" placeholder="Pesquisar por nome ou CPF..." oninput="atualizarListaOrcamento()">
+-      <div id="soma-total" class="total-soma"></div>
+-      <ul class="orcamento-list" id="orcamento-list"></ul>
+-      <button class="form-btn" style="background:#fbbf24;color:#1e293b" onclick="showSection('home')">Voltar ao Menu</button>
+-    </div>
+-  </div>
+-  <script src="../../script.js"></script>
+-  <script src="lista-orcamento.js"></script>
+-  <footer style="text-align:center;font-size:.96em;padding:15px 7px 11px 7px;color:#6c584c; background:#f9fafb;">
+-    Sistema desenvolvido por <b class="capitalize">João & Bruno</b>
+-  </footer>
+-</body>
++<body>Redirecionando...</body>
+ </html>
+diff --git a/domains/orcamentos/lista-orcamento.js b/domains/orcamentos/lista-orcamento.js
+index 687090a..d5fa32d 100644
+--- a/domains/orcamentos/lista-orcamento.js
++++ b/domains/orcamentos/lista-orcamento.js
+@@ -93,7 +93,7 @@ Agradecemos pela preferência!
+ }
+ 
+ function verOrcamento(idx) {
+-  window.location.href = `orcamento/index.html?idx=${idx}`;
++  window.location.href = `../../index.html?sec=orcamento-cliente&idx=${idx}`;
+ }
+ 
+ document.addEventListener('DOMContentLoaded', () => {
+diff --git a/domains/orcamentos/novo-orcamento.html b/domains/orcamentos/novo-orcamento.html
+index 16ba3f6..4a00543 100644
+--- a/domains/orcamentos/novo-orcamento.html
++++ b/domains/orcamentos/novo-orcamento.html
+@@ -2,34 +2,8 @@
+ <html lang="pt">
+ <head>
+   <meta charset="UTF-8">
+-  <meta name="viewport" content="width=device-width, initial-scale=1">
+-  <title>Novo Orçamento - Amigos Móveis Planejados</title>
+-  <link rel="stylesheet" href="../../styles.css">
+-  <link rel="stylesheet" href="orcamentos.css">
++  <title>Novo Orçamento</title>
++  <meta http-equiv="refresh" content="0; url=../../index.html?sec=cadastro-orcamento">
+ </head>
+-<body>
+-  <div class="header">
+-    <div class="header-logo capitalize">Amigos Móveis Planejados</div>
+-    <div class="header-desc">Gestão fácil de clientes e orçamentos<br>Móveis sob medida com confiança.</div>
+-  </div>
+-  <div class="container">
+-    <div class="card" id="cadastro-orcamento">
+-      <h2 id="orcamento-titulo">Novo orçamento</h2>
+-      <label for="cliente-orcamento-busca">Cliente</label>
+-      <input type="text" id="cliente-orcamento-busca" placeholder="Pesquisar cliente por nome ou CPF..." autocomplete="off">
+-      <div id="sugestoes-clientes" class="autocomplete-list"></div>
+-      <input type="hidden" id="cliente-orcamento-indice">
+-      <div class="itens-orcamento" id="itens-orcamento"></div>
+-      <div class="itens-lista-total" id="itens-lista-total"></div>
+-      <button type="button" class="add-item-btn" onclick="adicionarItem()">Adicionar item</button>
+-      <button class="form-btn" id="btn-inserir-editar" onclick="salvarOrcamento()">Inserir</button>
+-      <button class="form-btn" style="background:#fbbf24;color:#1e293b" onclick="showSection('home');resetOrcamentoForm()">Voltar ao Menu</button>
+-    </div>
+-  </div>
+-  <script src="../../script.js"></script>
+-  <script src="novo-orcamento.js"></script>
+-  <footer style="text-align:center;font-size:.96em;padding:15px 7px 11px 7px;color:#6c584c; background:#f9fafb;">
+-    Sistema desenvolvido por <b class="capitalize">João & Bruno</b>
+-  </footer>
+-</body>
++<body>Redirecionando...</body>
+ </html>
+diff --git a/domains/orcamentos/orcamento/index.html b/domains/orcamentos/orcamento/index.html
+index 6c69ead..3cd03c1 100644
+--- a/domains/orcamentos/orcamento/index.html
++++ b/domains/orcamentos/orcamento/index.html
+@@ -2,28 +2,12 @@
+ <html lang="pt">
+ <head>
+   <meta charset="UTF-8">
+-  <meta name="viewport" content="width=device-width, initial-scale=1">
+-  <title>Detalhe do Orçamento - Amigos Móveis Planejados</title>
+-  <link rel="stylesheet" href="../../../styles.css">
+-  <link rel="stylesheet" href="../orcamentos.css">
++  <title>Orçamento do Cliente</title>
++  <script>
++    const p = new URLSearchParams(window.location.search);
++    const idx = p.get('idx') || '';
++    window.location.replace(`../../../index.html?sec=orcamento-cliente${idx ? `&idx=${idx}` : ''}`);
++  </script>
+ </head>
+-<body>
+-  <div class="header">
+-    <div class="header-logo capitalize">Amigos Móveis Planejados</div>
+-    <div class="header-desc">Gestão fácil de clientes e orçamentos<br>Móveis sob medida com confiança.</div>
+-  </div>
+-  <div class="container">
+-    <div class="card" id="orcamento-cliente">
+-      <h2>Orçamento do Cliente</h2>
+-      <div id="orcamento-dados"></div>
+-      <div id="orcamento-termo" style="margin-top:10px;font-size:.92em;color:#374151"></div>
+-      <button class="form-btn" style="background:#fbbf24;color:#1e293b" onclick="window.history.back()">Voltar</button>
+-    </div>
+-  </div>
+-  <script src="../../../script.js"></script>
+-  <script src="orcamento.js"></script>
+-  <footer style="text-align:center;font-size:.96em;padding:15px 7px 11px 7px;color:#6c584c; background:#f9fafb;">
+-    Sistema desenvolvido por <b class="capitalize">João & Bruno</b>
+-  </footer>
+-</body>
++<body>Redirecionando...</body>
+ </html>
+diff --git a/domains/termos/index.html b/domains/termos/index.html
+index 45a9cf5..0aa32ca 100644
+--- a/domains/termos/index.html
++++ b/domains/termos/index.html
+@@ -2,32 +2,8 @@
+ <html lang="pt">
+ <head>
+   <meta charset="UTF-8">
+-  <meta name="viewport" content="width=device-width, initial-scale=1">
+-  <title>Gerenciar Termo - Amigos Móveis Planejados</title>
+-  <link rel="stylesheet" href="../../styles.css">
+-  <link rel="stylesheet" href="termos.css">
++  <title>Gerenciar Termo</title>
++  <meta http-equiv="refresh" content="0; url=../../index.html?sec=gerenciar-termo">
+ </head>
+-<body>
+-  <div class="header">
+-    <div class="header-logo capitalize">Amigos Móveis Planejados</div>
+-    <div class="header-desc">Gestão fácil de clientes e orçamentos<br>Móveis sob medida com confiança.</div>
+-  </div>
+-  <div class="container">
+-    <div class="card" id="gerenciar-termo">
+-      <h2>Gerenciar Termo</h2>
+-      <label for="termo-nome">Nome do termo</label>
+-      <input type="text" id="termo-nome" placeholder="Nome do termo">
+-      <label for="termo-texto">Texto do termo</label>
+-      <textarea id="termo-texto" rows="4" placeholder="Texto do termo"></textarea>
+-      <button class="form-btn" onclick="salvarTermo()">Salvar</button>
+-      <ul id="lista-termos" style="list-style:none;padding:0;margin-top:10px;"></ul>
+-      <button class="form-btn" style="background:#fbbf24;color:#1e293b" onclick="showSection('home')">Voltar ao Menu</button>
+-    </div>
+-  </div>
+-  <script src="../../script.js"></script>
+-  <script src="termos.js"></script>
+-  <footer style="text-align:center;font-size:.96em;padding:15px 7px 11px 7px;color:#6c584c; background:#f9fafb;">
+-    Sistema desenvolvido por <b class="capitalize">João & Bruno</b>
+-  </footer>
+-</body>
++<body>Redirecionando...</body>
+ </html>
+diff --git a/index.html b/index.html
+index 64ea507..f6eafc8 100644
+--- a/index.html
++++ b/index.html
+@@ -5,27 +5,22 @@
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title>Amigos Móveis Planejados - Orçamentos</title>
+   <link rel="stylesheet" href="styles.css">
++  <link rel="stylesheet" href="domains/clientes/clientes.css">
++  <link rel="stylesheet" href="domains/orcamentos/orcamentos.css">
++  <link rel="stylesheet" href="domains/termos/termos.css">
++  <link href="https://cdn.jsdelivr.net/npm/vuetify@3.5.11/dist/vuetify.min.css" rel="stylesheet">
+ </head>
+ <body>
+-  <div class="header">
+-    <div class="header-logo capitalize">Amigos Móveis Planejados</div>
+-    <div class="header-desc">Gestão fácil de clientes e orçamentos<br>Móveis sob medida com confiança.</div>
+-  </div>
+-  <div class="container">
+-    <!-- Home/Menu -->
+-    <div class="card" id="home">
+-      <h2>Menu</h2>
+-      <div class="menu">
+-        <button onclick="showSection('cadastro-cliente')">Cadastro de cliente</button>
+-        <button onclick="showSection('cadastro-orcamento')">Novo orçamento</button>
+-        <button onclick="showSection('lista-orcamento')">Listar orçamentos</button>
+-        <button onclick="showSection('gerenciar-termo')">Termo do orçamento</button>
+-      </div>
+-    </div>
+-  </div>
++  <div id="app"></div>
++
++  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
++  <script src="https://cdn.jsdelivr.net/npm/vuetify@3.5.11/dist/vuetify.min.js"></script>
+   <script src="script.js"></script>
+-  <footer style="text-align:center;font-size:.96em;padding:15px 7px 11px 7px;color:#6c584c; background:#f9fafb;">
+-    Sistema desenvolvido por <b class="capitalize">João & Bruno</b>
+-  </footer>
++  <script src="domains/clientes/cadastro-cliente.js"></script>
++  <script src="domains/orcamentos/novo-orcamento.js"></script>
++  <script src="domains/orcamentos/lista-orcamento.js"></script>
++  <script src="domains/orcamentos/orcamento/orcamento.js"></script>
++  <script src="domains/termos/termos.js"></script>
++  <script src="main.js"></script>
+ </body>
+ </html>
+diff --git a/main.js b/main.js
+new file mode 100644
+index 0000000..6bcb2e6
+--- /dev/null
++++ b/main.js
+@@ -0,0 +1,102 @@
++const { createApp } = Vue;
++const { createVuetify } = Vuetify;
++
++const vuetify = createVuetify();
++
++const app = createApp({
++  data() {
++    return { section: 'home' };
++  },
++  methods: {
++    go(sec) { showSection(sec); }
++  },
++  mounted() {
++    window.app = this;
++  },
++  template: `
++  <v-app>
++    <v-main>
++      <div class="header">
++        <div class="header-logo capitalize">Amigos Móveis Planejados</div>
++        <div class="header-desc">Gestão fácil de clientes e orçamentos<br>Móveis sob medida com confiança.</div>
++      </div>
++      <div class="container">
++        <div class="card" id="home" v-show="section === 'home'">
++          <h2>Menu</h2>
++          <div class="menu">
++            <v-btn block color="primary" class="mb-2" @click="go('cadastro-cliente')">Cadastro de cliente</v-btn>
++            <v-btn block color="primary" class="mb-2" @click="go('cadastro-orcamento')">Novo orçamento</v-btn>
++            <v-btn block color="primary" class="mb-2" @click="go('lista-orcamento')">Listar orçamentos</v-btn>
++            <v-btn block color="primary" class="mb-2" @click="go('gerenciar-termo')">Termo do orçamento</v-btn>
++          </div>
++        </div>
++
++        <div class="card" id="cadastro-cliente" v-show="section === 'cadastro-cliente'">
++          <h2>Cadastro de cliente</h2>
++          <div id="cliente-detalhe" style="display:none;"></div>
++          <div id="form-cadastro-cliente">
++            <v-text-field label="Nome" id="nome" placeholder="Nome"></v-text-field>
++            <v-text-field label="Sobrenome" id="sobrenome" placeholder="Sobrenome"></v-text-field>
++            <v-text-field label="CPF" id="cpf" placeholder="CPF (somente números)" maxlength="14" oninput="formatCPF(event.target)"></v-text-field>
++            <v-text-field label="Telefone" id="telefone" placeholder="(XX) XXXXX-XXXX" maxlength="15" oninput="formatTelefone(event.target)"></v-text-field>
++            <v-text-field label="Endereço" id="endereco" placeholder="Rua, Número, Bairro, Cidade"></v-text-field>
++            <v-btn class="form-btn" onclick="salvarCliente()">Salvar</v-btn>
++            <hr>
++            <v-text-field id="buscaCliente" class="search-box" placeholder="Buscar cliente (nome, cpf, tel, endereço)..." oninput="atualizarListaClientes()"></v-text-field>
++            <ul id="lista-clientes" style="list-style:none; padding:0; margin:0;"></ul>
++            <v-btn class="form-btn" style="background:#fbbf24;color:#1e293b" @click="go('home')">Voltar ao Menu</v-btn>
++          </div>
++        </div>
++
++        <div class="card" id="cadastro-orcamento" v-show="section === 'cadastro-orcamento'">
++          <h2 id="orcamento-titulo">Novo orçamento</h2>
++          <v-text-field label="Cliente" id="cliente-orcamento-busca" placeholder="Pesquisar cliente por nome ou CPF..." autocomplete="off"></v-text-field>
++          <div id="sugestoes-clientes" class="autocomplete-list"></div>
++          <input type="hidden" id="cliente-orcamento-indice">
++          <div class="itens-orcamento" id="itens-orcamento"></div>
++          <div class="itens-lista-total" id="itens-lista-total"></div>
++          <v-btn type="button" class="add-item-btn" onclick="adicionarItem()">Adicionar item</v-btn>
++          <v-btn class="form-btn" id="btn-inserir-editar" onclick="salvarOrcamento()">Inserir</v-btn>
++          <v-btn class="form-btn" style="background:#fbbf24;color:#1e293b" @click="go('home');resetOrcamentoForm()">Voltar ao Menu</v-btn>
++        </div>
++
++        <div class="card" id="lista-orcamento" v-show="section === 'lista-orcamento'">
++          <h2>Orçamentos realizados</h2>
++          <v-text-field class="search-box" id="search" placeholder="Pesquisar por nome ou CPF..." oninput="atualizarListaOrcamento()"></v-text-field>
++          <div id="soma-total" class="total-soma"></div>
++          <ul class="orcamento-list" id="orcamento-list"></ul>
++          <v-btn class="form-btn" style="background:#fbbf24;color:#1e293b" @click="go('home')">Voltar ao Menu</v-btn>
++        </div>
++
++        <div class="card" id="orcamento-cliente" v-show="section === 'orcamento-cliente'">
++          <h2>Orçamento do Cliente</h2>
++          <div id="orcamento-dados"></div>
++          <div id="orcamento-termo" style="margin-top:10px;font-size:.92em;color:#374151"></div>
++          <v-btn class="form-btn" style="background:#fbbf24;color:#1e293b" onclick="window.history.back()">Voltar</v-btn>
++        </div>
++
++        <div class="card" id="gerenciar-termo" v-show="section === 'gerenciar-termo'">
++          <h2>Gerenciar Termo</h2>
++          <v-text-field label="Nome do termo" id="termo-nome" placeholder="Nome do termo"></v-text-field>
++          <v-textarea label="Texto do termo" id="termo-texto" rows="4" placeholder="Texto do termo"></v-textarea>
++          <v-btn class="form-btn" onclick="salvarTermo()">Salvar</v-btn>
++          <ul id="lista-termos" style="list-style:none;padding:0;margin-top:10px;"></ul>
++          <v-btn class="form-btn" style="background:#fbbf24;color:#1e293b" @click="go('home')">Voltar ao Menu</v-btn>
++        </div>
++      </div>
++    </v-main>
++    <footer style="text-align:center;font-size:.96em;padding:15px 7px 11px 7px;color:#6c584c; background:#f9fafb;">
++      Sistema desenvolvido por <b class="capitalize">João & Bruno</b>
++    </footer>
++  </v-app>
++  `
++});
++
++app.use(vuetify);
++window.app = app.mount('#app');
++
++const params = new URLSearchParams(window.location.search);
++const hash = window.location.hash.replace('#', '');
++const start = params.get('sec') || hash;
++if (start) showSection(start);
++
+diff --git a/script.js b/script.js
+index 479d6b3..b852f10 100644
+--- a/script.js
++++ b/script.js
+@@ -52,32 +52,16 @@ let orcamentoEditando = null;
+ let oldShowSection = function () {};
+ if (typeof showSection === "function") oldShowSection = showSection;
+ 
+-const BASE_DIR = (document.currentScript && document.currentScript.src || '')
+-  .replace(/\/script\.js(?:\?.*)?$/, '/');
+-
+ showSection = function (id) {
+   if (typeof oldShowSection === "function") oldShowSection(id);
+ 
+-  const pageMap = {
+-    'home': BASE_DIR + 'index.html',
+-    'cadastro-cliente': BASE_DIR + 'domains/clientes/index.html',
+-    'cadastro-orcamento': BASE_DIR + 'domains/orcamentos/novo-orcamento.html',
+-    'lista-orcamento': BASE_DIR + 'domains/orcamentos/lista-orcamento.html',
+-    'orcamento-cliente': BASE_DIR + 'domains/orcamentos/orcamento/index.html',
+-    'gerenciar-termo': BASE_DIR + 'domains/termos/index.html'
+-  };
+-
+-  const el = document.getElementById(id);
+-  if (!el) {
+-    if (pageMap[id]) window.location.href = pageMap[id];
+-    return;
+-  }
++  if (window.app) window.app.section = id;
+ 
+-  ['home','cadastro-cliente','cadastro-orcamento','lista-orcamento'].forEach(sec => {
++  ['home','cadastro-cliente','cadastro-orcamento','lista-orcamento',
++   'orcamento-cliente','gerenciar-termo'].forEach(sec => {
+     const s = document.getElementById(sec);
+-    if (s) s.style.display = 'none';
++    if (s) s.style.display = sec === id ? 'block' : 'none';
+   });
+-  el.style.display = 'block';
+ 
+   if (id === 'cadastro-cliente') {
+     fecharClienteDetalhe();
+-- 
+2.43.0
+
