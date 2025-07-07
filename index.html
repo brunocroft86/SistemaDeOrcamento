@@ -5,27 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Amigos Móveis Planejados - Orçamentos</title>
   <link rel="stylesheet" href="styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@3.5.11/dist/vuetify.min.css" rel="stylesheet">
 </head>
 <body>
-  <div class="header">
-    <div class="header-logo capitalize">Amigos Móveis Planejados</div>
-    <div class="header-desc">Gestão fácil de clientes e orçamentos<br>Móveis sob medida com confiança.</div>
-  </div>
-  <div class="container">
-    <!-- Home/Menu -->
-    <div class="card" id="home">
-      <h2>Menu</h2>
-      <div class="menu">
-        <button onclick="showSection('cadastro-cliente')">Cadastro de cliente</button>
-        <button onclick="showSection('cadastro-orcamento')">Novo orçamento</button>
-        <button onclick="showSection('lista-orcamento')">Listar orçamentos</button>
-        <button onclick="showSection('gerenciar-termo')">Termo do orçamento</button>
-      </div>
-    </div>
-  </div>
+  <div id="app"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@3.5.11/dist/vuetify.min.js"></script>
   <script src="script.js"></script>
-  <footer style="text-align:center;font-size:.96em;padding:15px 7px 11px 7px;color:#6c584c; background:#f9fafb;">
-    Sistema desenvolvido por <b class="capitalize">João & Bruno</b>
-  </footer>
+  <script src="main.js"></script>
 </body>
 </html>
