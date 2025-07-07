@@ -62,7 +62,7 @@ showSection = function (id) {
     'cadastro-orcamento': basePath + 'domains/orcamentos/novo-orcamento.html',
     'lista-orcamento': basePath + 'domains/orcamentos/lista-orcamento.html',
     'orcamento-cliente': basePath + 'domains/orcamentos/orcamento/index.html',
-    'gerenciar-tema': basePath + 'domains/temas/index.html'
+    'gerenciar-termo': basePath + 'domains/termos/index.html'
   };
 
   const el = document.getElementById(id);

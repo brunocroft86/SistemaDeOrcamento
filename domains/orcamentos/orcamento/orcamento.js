@@ -3,15 +3,16 @@ function obterParametro(nome) {
   return url.searchParams.get(nome);
 }
 
-function aplicarTema() {
-  let tema = null;
+function inserirTermo() {
+  let termo = null;
   try {
-    tema = JSON.parse(localStorage.getItem('temaAtual'));
+    termo = JSON.parse(localStorage.getItem('termoAtual'));
   } catch (e) {
-    tema = null;
+    termo = null;
   }
-  if (tema && tema.cor) {
-    document.documentElement.style.setProperty('--primary', tema.cor);
+  if (termo && termo.texto) {
+    const div = document.getElementById('orcamento-termo');
+    if (div) div.textContent = termo.texto;
   }
 }
 
@@ -40,6 +41,6 @@ function exibirOrcamento() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  aplicarTema();
   exibirOrcamento();
+  inserirTermo();
 });
