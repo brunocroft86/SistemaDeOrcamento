@@ -6,8 +6,10 @@
   <title>Gerenciar Termo - Amigos Móveis Planejados</title>
   <link rel="stylesheet" href="../../styles.css">
   <link rel="stylesheet" href="termos.css">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@3.5.11/dist/vuetify.min.css" rel="stylesheet">
 </head>
 <body>
+  <div id="app">
   <div class="header">
     <div class="header-logo capitalize">Amigos Móveis Planejados</div>
     <div class="header-desc">Gestão fácil de clientes e orçamentos<br>Móveis sob medida com confiança.</div>
@@ -15,17 +17,23 @@
   <div class="container">
     <div class="card" id="gerenciar-termo">
       <h2>Gerenciar Termo</h2>
-      <label for="termo-nome">Nome do termo</label>
-      <input type="text" id="termo-nome" placeholder="Nome do termo">
-      <label for="termo-texto">Texto do termo</label>
-      <textarea id="termo-texto" rows="4" placeholder="Texto do termo"></textarea>
-      <button class="form-btn" onclick="salvarTermo()">Salvar</button>
+      <v-text-field label="Nome do termo" id="termo-nome" placeholder="Nome do termo"></v-text-field>
+      <v-textarea label="Texto do termo" id="termo-texto" rows="4" placeholder="Texto do termo"></v-textarea>
+      <v-btn class="form-btn" onclick="salvarTermo()">Salvar</v-btn>
       <ul id="lista-termos" style="list-style:none;padding:0;margin-top:10px;"></ul>
-      <button class="form-btn" style="background:#fbbf24;color:#1e293b" onclick="showSection('home')">Voltar ao Menu</button>
+      <v-btn class="form-btn" style="background:#fbbf24;color:#1e293b" onclick="showSection('home')">Voltar ao Menu</v-btn>
     </div>
   </div>
+</div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@3.5.11/dist/vuetify.min.js"></script>
   <script src="../../script.js"></script>
   <script src="termos.js"></script>
+  <script>
+    const { createApp } = Vue;
+    const { createVuetify } = Vuetify;
+    createApp({}).use(createVuetify()).mount('#app');
+  </script>
   <footer style="text-align:center;font-size:.96em;padding:15px 7px 11px 7px;color:#6c584c; background:#f9fafb;">
     Sistema desenvolvido por <b class="capitalize">João & Bruno</b>
   </footer>

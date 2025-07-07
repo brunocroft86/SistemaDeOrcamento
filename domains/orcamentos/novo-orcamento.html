@@ -6,8 +6,10 @@
   <title>Novo Orçamento - Amigos Móveis Planejados</title>
   <link rel="stylesheet" href="../../styles.css">
   <link rel="stylesheet" href="orcamentos.css">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@3.5.11/dist/vuetify.min.css" rel="stylesheet">
 </head>
 <body>
+  <div id="app">
   <div class="header">
     <div class="header-logo capitalize">Amigos Móveis Planejados</div>
     <div class="header-desc">Gestão fácil de clientes e orçamentos<br>Móveis sob medida com confiança.</div>
@@ -15,19 +17,26 @@
   <div class="container">
     <div class="card" id="cadastro-orcamento">
       <h2 id="orcamento-titulo">Novo orçamento</h2>
-      <label for="cliente-orcamento-busca">Cliente</label>
-      <input type="text" id="cliente-orcamento-busca" placeholder="Pesquisar cliente por nome ou CPF..." autocomplete="off">
+      <v-text-field label="Cliente" id="cliente-orcamento-busca" placeholder="Pesquisar cliente por nome ou CPF..." autocomplete="off"></v-text-field>
       <div id="sugestoes-clientes" class="autocomplete-list"></div>
       <input type="hidden" id="cliente-orcamento-indice">
       <div class="itens-orcamento" id="itens-orcamento"></div>
       <div class="itens-lista-total" id="itens-lista-total"></div>
-      <button type="button" class="add-item-btn" onclick="adicionarItem()">Adicionar item</button>
-      <button class="form-btn" id="btn-inserir-editar" onclick="salvarOrcamento()">Inserir</button>
-      <button class="form-btn" style="background:#fbbf24;color:#1e293b" onclick="showSection('home');resetOrcamentoForm()">Voltar ao Menu</button>
+      <v-btn type="button" class="add-item-btn" onclick="adicionarItem()">Adicionar item</v-btn>
+      <v-btn class="form-btn" id="btn-inserir-editar" onclick="salvarOrcamento()">Inserir</v-btn>
+      <v-btn class="form-btn" style="background:#fbbf24;color:#1e293b" onclick="showSection('home');resetOrcamentoForm()">Voltar ao Menu</v-btn>
     </div>
   </div>
+</div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@3.5.11/dist/vuetify.min.js"></script>
   <script src="../../script.js"></script>
   <script src="novo-orcamento.js"></script>
+  <script>
+    const { createApp } = Vue;
+    const { createVuetify } = Vuetify;
+    createApp({}).use(createVuetify()).mount('#app');
+  </script>
   <footer style="text-align:center;font-size:.96em;padding:15px 7px 11px 7px;color:#6c584c; background:#f9fafb;">
     Sistema desenvolvido por <b class="capitalize">João & Bruno</b>
   </footer>
