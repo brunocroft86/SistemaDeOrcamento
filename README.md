@@ -34,6 +34,9 @@ Você pode testar a aplicação online através do [GitHub Pages](https://joaona
   - **orcamentos/** — Domínio de orçamentos
     - **novo-orcamento.html** — Formulário para criação de orçamentos
     - **lista-orcamento.html** — Listagem e gestão de orçamentos existentes
+    - **orcamento/** — Subdomínio para visualizar o orçamento de um cliente
+      - **index.html** — Página com os detalhes do orçamento
+      - **orcamento.js** — Script do orçamento individual
     - **novo-orcamento.js** — Rotinas para criar e editar orçamentos
     - **lista-orcamento.js** — Ações da listagem de orçamentos
     - **orcamentos.css** — Estilos específicos do domínio
