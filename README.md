@@ -56,4 +56,3 @@ Se quiser mais funcionalidades (assinatura digital, WhatsApp, impressão, Pix, r
 ---
 
 **Desenvolvido por eu ele.**  
-
