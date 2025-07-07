@@ -33,6 +33,7 @@ function atualizarListaOrcamento() {
         <button class="btn-edit" onclick="editarOrcamento(${orc.idx})">Editar</button>
         <button class="btn-delete" onclick="removerOrcamento(${orc.idx})">Remover</button>
         <button class="btn-share" onclick="compartilharOrcamento(${orc.idx})">Compartilhar</button>
+        <button class="btn-view" onclick="verOrcamento(${orc.idx})">Ver</button>
       </div>
     `;
     ul.appendChild(li);
@@ -89,6 +90,10 @@ Agradecemos pela preferência!
   } else {
     prompt("Copie a nota eletrônica:", recibo);
   }
+}
+
+function verOrcamento(idx) {
+  window.location.href = `orcamento/index.html?idx=${idx}`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
