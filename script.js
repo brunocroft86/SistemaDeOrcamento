@@ -51,18 +51,20 @@ let orcamentoEditando = null;
 
 let oldShowSection = function () {};
 if (typeof showSection === "function") oldShowSection = showSection;
+
+const BASE_DIR = (document.currentScript && document.currentScript.src || '')
+  .replace(/\/script\.js(?:\?.*)?$/, '/');
+
 showSection = function (id) {
   if (typeof oldShowSection === "function") oldShowSection(id);
 
-  const depth = location.pathname.split('/').filter(Boolean).length - 1;
-  const basePath = depth ? '../'.repeat(depth) : './';
   const pageMap = {
-    'home': basePath + 'index.html',
-    'cadastro-cliente': basePath + 'domains/clientes/index.html',
-    'cadastro-orcamento': basePath + 'domains/orcamentos/novo-orcamento.html',
-    'lista-orcamento': basePath + 'domains/orcamentos/lista-orcamento.html',
-    'orcamento-cliente': basePath + 'domains/orcamentos/orcamento/index.html',
-    'gerenciar-termo': basePath + 'domains/termos/index.html'
+    'home': BASE_DIR + 'index.html',
+    'cadastro-cliente': BASE_DIR + 'domains/clientes/index.html',
+    'cadastro-orcamento': BASE_DIR + 'domains/orcamentos/novo-orcamento.html',
+    'lista-orcamento': BASE_DIR + 'domains/orcamentos/lista-orcamento.html',
+    'orcamento-cliente': BASE_DIR + 'domains/orcamentos/orcamento/index.html',
+    'gerenciar-termo': BASE_DIR + 'domains/termos/index.html'
   };
 
   const el = document.getElementById(id);
