@@ -14,6 +14,10 @@ Este repositório deve seguir os princípios de **Domain Driven Design (DDD)**, 
 
 ## Regras de commit
 - Descreva de forma objetiva as alterações, mencionando o domínio afetado quando aplicável.
+- Todo commit deve ser em portugues-br.
 - Certifique-se de que os testes e linters executem com sucesso antes do commit.
 
 Ao adicionar este `AGENTS.md`, os agentes do Codex sempre lerão essas instruções para manter o padrão de DDD, POO e SOLID ao modificar o projeto.
+
+## Regras de resposta no codex
+- Sempre interaja comigo no chat em portugues-br
