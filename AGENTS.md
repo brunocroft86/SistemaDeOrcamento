@@ -28,7 +28,11 @@ Este repositório deve seguir os princípios de **Domain Driven Design (DDD)**, 
 - Todo commit deve ser em portugues-br.
 - Certifique-se de que os testes e linters executem com sucesso antes do commit.
 
+## Regras para criação de branches
+- Nunca utilize caracteres especiais (como acentos, espaços, cedilha, etc) nos nomes das branches. Use apenas letras minúsculas, números e hífens (`-`).
+- Exemplo de nome correto: `orcamento-listagem-ajustes`.
+
 Ao adicionar este `AGENTS.md`, os agentes do Codex sempre lerão essas instruções para manter o padrão de DDD, POO, SOLID, Vue e Vuetify ao modificar o projeto.
 
 ## Regras de resposta no codex
-- Sempre interaja comigo no chat em portugues-br
+- Sempre interaja comigo no chat em português
