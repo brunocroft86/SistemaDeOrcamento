@@ -20,7 +20,7 @@
   </v-container>
 </template>
 
-<script>
+<script lang="ts">
 import ClienteMockService from '../services/ClienteMockService'
 export default {
   data() {

@@ -1,28 +1,33 @@
-function formatCPF(input) {
-  let value = input.value.replace(/\D/g, "");
+// Tipagens globais definidas em src/types/global.d.ts
+
+function formatCPF(input: HTMLInputElement): void {
+  let value: string = input.value.replace(/\D/g, "");
   if (value.length > 11) value = value.slice(0, 11);
   value = value.replace(/(\d{3})(\d)/, "$1.$2");
   value = value.replace(/(\d{3})(\d)/, "$1.$2");
   value = value.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
   input.value = value;
 }
-function formatTelefone(input) {
+function formatTelefone(input: HTMLInputElement): void {
   if (typeof Telefone !== 'undefined') {
     Telefone.formatInput(input);
   } else {
-    let v = input.value.replace(/\D/g, "");
+    let v: string = input.value.replace(/\D/g, "");
     v = v.replace(/^(\d{2})(\d)/g, "($1) $2");
     v = v.replace(/(\d{5})(\d)/, "$1-$2");
     v = v.slice(0, 15);
     input.value = v;
   }
 }
-function capitalizar(str) {
-  return str.replace(/\b\w/g, l => l.toUpperCase()).replace(/\s+/g, ' ').trim();
+function capitalizar(str: string): string {
+  return str
+    .replace(/\b\w/g, (l: string) => l.toUpperCase())
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 // Exibe aviso via v-snackbar
-function showAviso(msg, cor = "#2563eb") {
+function showAviso(msg: string, cor = "#2563eb"): void {
   if (window.app) {
     window.app.snackbar.msg = msg;
     window.app.snackbar.color = cor;
@@ -33,15 +38,34 @@ function showAviso(msg, cor = "#2563eb") {
 }
 
 // Dados temporários em memória enquanto a API não estiver disponível
-let clientes = [];
-let orcamentos = [];
-let orcamentoEditando = null;
-let termoAtual = null; // usado para inserir texto adicional nos orçamentos
+interface ClienteLista {
+  nome: string
+  sobrenome: string
+  cpf: string
+  telefonesFormatados: string
+  endereco: string
+}
 
-let oldShowSection = function () {};
+interface OrcamentoSimples {
+  cliente: ClienteLista & { nomeCompleto: string }
+  itens: { descricao: string; valor: number }[]
+  total: number
+}
+
+interface Termo {
+  nome: string
+  texto: string
+}
+
+let clientes: ClienteLista[] = [];
+let orcamentos: OrcamentoSimples[] = [];
+let orcamentoEditando: OrcamentoSimples | null = null;
+let termoAtual: Termo | null = null; // usado para inserir texto adicional nos orçamentos
+
+let oldShowSection: ((id: string) => void) | null = function () {};
 if (typeof showSection === "function") oldShowSection = showSection;
 
-showSection = function (id) {
+showSection = function (id: string): void {
   if (typeof oldShowSection === "function") oldShowSection(id);
 
   if (window.app) window.app.section = id;
@@ -58,7 +82,7 @@ showSection = function (id) {
   }
   if (id === 'cadastro-orcamento') {
     if (window.app) {
-      window.app.clientesOptions = clientes.map((c, i) => ({
+      window.app.clientesOptions = clientes.map((c: ClienteLista, i: number) => ({
         idx: i,
         label: `${c.nome} ${c.sobrenome} - ${c.cpf} - ${c.telefonesFormatados}`
       }));
@@ -80,6 +104,6 @@ showSection = function (id) {
   if (id !== 'cadastro-orcamento') resetOrcamentoForm();
 }
 
-function formatarReal(valor) {
+function formatarReal(valor: number): string {
   return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }

@@ -1,5 +1,6 @@
-const { createApp } = Vue;
-const { createVuetify } = Vuetify;
+// Tipagens globais definidas em src/types/global.d.ts
+const { createApp } = Vue
+const { createVuetify } = Vuetify
 
 const vuetify = createVuetify();
 
