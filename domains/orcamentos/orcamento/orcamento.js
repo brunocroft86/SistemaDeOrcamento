@@ -3,6 +3,18 @@ function obterParametro(nome) {
   return url.searchParams.get(nome);
 }
 
+function aplicarTema() {
+  let tema = null;
+  try {
+    tema = JSON.parse(localStorage.getItem('temaAtual'));
+  } catch (e) {
+    tema = null;
+  }
+  if (tema && tema.cor) {
+    document.documentElement.style.setProperty('--primary', tema.cor);
+  }
+}
+
 function exibirOrcamento() {
   const idx = obterParametro('idx');
   if (idx === null) {
@@ -27,4 +39,7 @@ function exibirOrcamento() {
   `;
 }
 
-document.addEventListener('DOMContentLoaded', exibirOrcamento);
+document.addEventListener('DOMContentLoaded', function() {
+  aplicarTema();
+  exibirOrcamento();
+});

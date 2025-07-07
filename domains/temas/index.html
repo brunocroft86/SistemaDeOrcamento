@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gerenciar Tema - Amigos Móveis Planejados</title>
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="temas.css">
+</head>
+<body>
+  <div class="header">
+    <div class="header-logo capitalize">Amigos Móveis Planejados</div>
+    <div class="header-desc">Gestão fácil de clientes e orçamentos<br>Móveis sob medida com confiança.</div>
+  </div>
+  <div class="container">
+    <div class="card" id="gerenciar-tema">
+      <h2>Gerenciar Tema</h2>
+      <label for="tema-nome">Nome do tema</label>
+      <input type="text" id="tema-nome" placeholder="Nome do tema">
+      <label for="tema-cor">Cor principal</label>
+      <input type="color" id="tema-cor" value="#1e40af">
+      <button class="form-btn" onclick="salvarTema()">Salvar</button>
+      <ul id="lista-temas" style="list-style:none;padding:0;margin-top:10px;"></ul>
+      <button class="form-btn" style="background:#fbbf24;color:#1e293b" onclick="showSection('home')">Voltar ao Menu</button>
+    </div>
+  </div>
+  <script src="../../script.js"></script>
+  <script src="temas.js"></script>
+  <footer style="text-align:center;font-size:.96em;padding:15px 7px 11px 7px;color:#6c584c; background:#f9fafb;">
+    Sistema desenvolvido por <b class="capitalize">João & Bruno</b>
+  </footer>
+</body>
+</html>

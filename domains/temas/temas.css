@@ -1,0 +1,7 @@
+#gerenciar-tema {
+  border-left: 4px solid var(--primary);
+  padding-left: 10px;
+}
+.tema-item button {
+  margin-left: 5px;
+}
