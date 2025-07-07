@@ -99,4 +99,3 @@ const params = new URLSearchParams(window.location.search);
 const hash = window.location.hash.replace('#', '');
 const start = params.get('sec') || hash;
 if (start) showSection(start);
-
