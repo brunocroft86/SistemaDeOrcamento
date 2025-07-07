@@ -53,26 +53,11 @@ function salvarOrcamento() {
   const clienteObj = clientes[idx];
   let itens = obterItensForm();
   if (itens.length == 0) { showAviso("Adicione ao menos 1 item!","#ef4444"); return; }
-  let total = itens.reduce((sum, it) => sum + it.valor, 0);
   if (orcamentoEditando !== null) {
-    orcamentos[orcamentoEditando] = {
-      cliente: capitalizar(clienteObj.nome + " " + clienteObj.sobrenome),
-      cpf: clienteObj.cpf,
-      telefone: clienteObj.telefone,
-      endereco: capitalizar(clienteObj.endereco),
-      itens,
-      total
-    };
+    orcamentos[orcamentoEditando] = new Orcamento(clienteObj, itens);
     showAviso("Orçamento atualizado!", "#10b981");
   } else {
-    orcamentos.push({
-      cliente: capitalizar(clienteObj.nome + " " + clienteObj.sobrenome),
-      cpf: clienteObj.cpf,
-      telefone: clienteObj.telefone,
-      endereco: capitalizar(clienteObj.endereco),
-      itens,
-      total
-    });
+    orcamentos.push(new Orcamento(clienteObj, itens));
     showAviso("Orçamento inserido!", "#10b981");
   }
   resetOrcamentoForm();
@@ -90,9 +75,7 @@ function editarOrcamento(idx) {
   const orc = orcamentos[idx];
   showSection('cadastro-orcamento');
   if (window.app) {
-    const index = clientes.findIndex(c =>
-      `${c.nome} ${c.sobrenome}`.toLowerCase() === orc.cliente.toLowerCase() && c.cpf === orc.cpf
-    );
+    const index = clientes.findIndex(c => c.cpf === orc.cliente.cpf);
     window.app.clienteSelecionado = index >= 0 ? index : null;
   }
   const itensDiv = document.getElementById('itens-orcamento');
@@ -108,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.app) {
     window.app.clientesOptions = clientes.map((c, i) => ({
       idx: i,
-      label: `${c.nome} ${c.sobrenome} - ${c.cpf} - ${c.telefone}`
+      label: `${c.nome} ${c.sobrenome} - ${c.cpf} - ${c.telefonesFormatados}`
     }));
   }
 });

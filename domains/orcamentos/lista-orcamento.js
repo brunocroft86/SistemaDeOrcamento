@@ -2,11 +2,11 @@
 function atualizarListaOrcamento() {
   const ul = document.getElementById('orcamento-list');
   const search = document.getElementById('search').value.trim().toLowerCase();
-  let filtrados = orcamentos.map((o, idx) => ({...o, idx}));
+  let filtrados = orcamentos.map((o, idx) => ({orc:o, idx}));
   if (search.length > 0) {
-    filtrados = filtrados.filter(orc =>
-      (orc.cliente && orc.cliente.toLowerCase().includes(search)) ||
-      (orc.cpf && orc.cpf.replace(/\D/g,"").includes(search.replace(/\D/g,"")))
+    filtrados = filtrados.filter(entry =>
+      entry.orc.cliente.nomeCompleto.toLowerCase().includes(search) ||
+      entry.orc.cliente.cpf.replace(/\D/g,'').includes(search.replace(/\D/g,''))
     );
   }
   ul.innerHTML = '';
@@ -16,24 +16,24 @@ function atualizarListaOrcamento() {
     return;
   }
   let soma = 0;
-  filtrados.forEach(orc => {
+  filtrados.forEach(({orc, idx}) => {
     soma += orc.total;
     const li = document.createElement('li');
     li.className = 'orcamento-item';
     li.innerHTML = `
-      <b class="capitalize">${orc.cliente}</b> <br>
-      CPF: <span style="font-size:.97em">${orc.cpf}</span><br>
-      Tel: <span style="font-size:.97em">${orc.telefone || ''}</span><br>
-      <span style="font-size:.96em;color:#777;" class="capitalize">${orc.endereco || ''}</span>
+      <b class="capitalize">${orc.cliente.nomeCompleto}</b> <br>
+      CPF: <span style="font-size:.97em">${orc.cliente.cpf}</span><br>
+      Tel: <span style="font-size:.97em">${orc.cliente.telefonesFormatados || ''}</span><br>
+      <span style="font-size:.96em;color:#777;" class="capitalize">${orc.cliente.endereco || ''}</span>
       <ul style="padding-left:17px;margin:4px 0 5px 0;">
         ${orc.itens.map(it=>`<li class="capitalize">${it.descricao} - <span>${formatarReal(it.valor)}</span></li>`).join("")}
       </ul>
       <b>Total: ${formatarReal(orc.total)}</b>
       <div class="orcamento-actions">
-        <button class="btn-edit" onclick="editarOrcamento(${orc.idx})">Editar</button>
-        <button class="btn-delete" onclick="removerOrcamento(${orc.idx})">Remover</button>
-        <button class="btn-share" onclick="compartilharOrcamento(${orc.idx})">Compartilhar</button>
-        <button class="btn-view" onclick="verOrcamento(${orc.idx})">Ver</button>
+        <button class="btn-edit" onclick="editarOrcamento(${idx})">Editar</button>
+        <button class="btn-delete" onclick="removerOrcamento(${idx})">Remover</button>
+        <button class="btn-share" onclick="compartilharOrcamento(${idx})">Compartilhar</button>
+        <button class="btn-view" onclick="verOrcamento(${idx})">Ver</button>
       </div>
     `;
     ul.appendChild(li);
@@ -50,30 +50,7 @@ function removerOrcamento(idx) {
 function compartilharOrcamento(idx) {
   const orc = orcamentos[idx];
   const loja = "AMIGOS MÓVEIS PLANEJADOS";
-  const data = new Date().toLocaleDateString("pt-BR");
-  let recibo =
-`╔════════════════════════╗
-        ${loja}
-╚════════════════════════╝
-
-Recibo Eletrônico - Orçamento
-
-Cliente: ${capitalizar(orc.cliente)}
-CPF: ${orc.cpf}
-Telefone: ${orc.telefone || ""}
-Endereço: ${capitalizar(orc.endereco || "")}
-
-Itens:
-${orc.itens.map(it =>
-  "• " + capitalizar(it.descricao).padEnd(22, " ") + "  " + formatarReal(it.valor)).join('\n')}
-
-─────────────────────────────
-TOTAL:        ${formatarReal(orc.total)}
-─────────────────────────────
-
-Data: ${data}
-Agradecemos pela preferência!
-`;
+  const recibo = orc.gerarRecibo(loja);
 
   if (navigator.share) {
     navigator.share({

@@ -7,11 +7,15 @@ function formatCPF(input) {
   input.value = value;
 }
 function formatTelefone(input) {
-  let v = input.value.replace(/\D/g, "");
-  v = v.replace(/^(\d{2})(\d)/g, "($1) $2");
-  v = v.replace(/(\d{5})(\d)/, "$1-$2");
-  v = v.slice(0, 15);
-  input.value = v;
+  if (typeof Telefone !== 'undefined') {
+    Telefone.formatInput(input);
+  } else {
+    let v = input.value.replace(/\D/g, "");
+    v = v.replace(/^(\d{2})(\d)/g, "($1) $2");
+    v = v.replace(/(\d{5})(\d)/, "$1-$2");
+    v = v.slice(0, 15);
+    input.value = v;
+  }
 }
 function capitalizar(str) {
   return str.replace(/\b\w/g, l => l.toUpperCase()).replace(/\s+/g, ' ').trim();
@@ -46,6 +50,7 @@ showSection = function (id) {
   if (id === 'cadastro-cliente') {
     fecharClienteDetalhe();
     atualizarListaClientes();
+    if (document.getElementById('telefones-cliente').children.length === 0) adicionarTelefone();
     setTimeout(() => {
       const busca = document.getElementById('buscaCliente');
       if (busca) busca.focus();
@@ -55,7 +60,7 @@ showSection = function (id) {
     if (window.app) {
       window.app.clientesOptions = clientes.map((c, i) => ({
         idx: i,
-        label: `${c.nome} ${c.sobrenome} - ${c.cpf} - ${c.telefone}`
+        label: `${c.nome} ${c.sobrenome} - ${c.cpf} - ${c.telefonesFormatados}`
       }));
       window.app.clienteSelecionado = clientes.length === 1 ? 0 : null;
     }

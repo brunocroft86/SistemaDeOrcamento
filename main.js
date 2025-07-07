@@ -43,7 +43,8 @@ const app = createApp({
             <v-text-field label="Nome" id="nome" placeholder="Nome"></v-text-field>
             <v-text-field label="Sobrenome" id="sobrenome" placeholder="Sobrenome"></v-text-field>
             <v-text-field label="CPF" id="cpf" placeholder="CPF (somente números)" maxlength="14" oninput="formatCPF(event.target)"></v-text-field>
-            <v-text-field label="Telefone" id="telefone" placeholder="(XX) XXXXX-XXXX" maxlength="15" oninput="formatTelefone(event.target)"></v-text-field>
+            <div id="telefones-cliente" class="tel-list"></div>
+            <v-btn type="button" class="add-item-btn" onclick="adicionarTelefone()">Adicionar telefone</v-btn>
             <v-text-field label="Endereço" id="endereco" placeholder="Rua, Número, Bairro, Cidade"></v-text-field>
             <v-btn class="form-btn" onclick="salvarCliente()">Salvar</v-btn>
             <hr>
