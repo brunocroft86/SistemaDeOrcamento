@@ -8,7 +8,7 @@ const app = createApp({
     return { section: 'home' };
   },
   methods: {
-    open(sec) { showSection(sec); }
+    go(sec) { showSection(sec); }
   },
   mounted() {
     window.app = this;
@@ -24,10 +24,10 @@ const app = createApp({
         <div class="card" id="home" v-show="section === 'home'">
           <h2>Menu</h2>
           <div class="menu">
-            <v-btn block color="primary" class="mb-2" @click="open('cadastro-cliente')">Cadastro de cliente</v-btn>
-            <v-btn block color="primary" class="mb-2" @click="open('cadastro-orcamento')">Novo orçamento</v-btn>
-            <v-btn block color="primary" class="mb-2" @click="open('lista-orcamento')">Listar orçamentos</v-btn>
-            <v-btn block color="primary" class="mb-2" @click="open('gerenciar-termo')">Termo do orçamento</v-btn>
+            <v-btn block color="primary" class="mb-2" @click="go('cadastro-cliente')">Cadastro de cliente</v-btn>
+            <v-btn block color="primary" class="mb-2" @click="go('cadastro-orcamento')">Novo orçamento</v-btn>
+            <v-btn block color="primary" class="mb-2" @click="go('lista-orcamento')">Listar orçamentos</v-btn>
+            <v-btn block color="primary" class="mb-2" @click="go('gerenciar-termo')">Termo do orçamento</v-btn>
           </div>
         </div>
 
@@ -44,7 +44,7 @@ const app = createApp({
             <hr>
             <v-text-field id="buscaCliente" class="search-box" placeholder="Buscar cliente (nome, cpf, tel, endereço)..." oninput="atualizarListaClientes()"></v-text-field>
             <ul id="lista-clientes" style="list-style:none; padding:0; margin:0;"></ul>
-            <v-btn class="form-btn" style="background:#fbbf24;color:#1e293b" @click="open('home')">Voltar ao Menu</v-btn>
+            <v-btn class="form-btn" style="background:#fbbf24;color:#1e293b" @click="go('home')">Voltar ao Menu</v-btn>
           </div>
         </div>
 
@@ -57,7 +57,7 @@ const app = createApp({
           <div class="itens-lista-total" id="itens-lista-total"></div>
           <v-btn type="button" class="add-item-btn" onclick="adicionarItem()">Adicionar item</v-btn>
           <v-btn class="form-btn" id="btn-inserir-editar" onclick="salvarOrcamento()">Inserir</v-btn>
-          <v-btn class="form-btn" style="background:#fbbf24;color:#1e293b" @click="open('home');resetOrcamentoForm()">Voltar ao Menu</v-btn>
+          <v-btn class="form-btn" style="background:#fbbf24;color:#1e293b" @click="go('home');resetOrcamentoForm()">Voltar ao Menu</v-btn>
         </div>
 
         <div class="card" id="lista-orcamento" v-show="section === 'lista-orcamento'">
@@ -65,7 +65,7 @@ const app = createApp({
           <v-text-field class="search-box" id="search" placeholder="Pesquisar por nome ou CPF..." oninput="atualizarListaOrcamento()"></v-text-field>
           <div id="soma-total" class="total-soma"></div>
           <ul class="orcamento-list" id="orcamento-list"></ul>
-          <v-btn class="form-btn" style="background:#fbbf24;color:#1e293b" @click="open('home')">Voltar ao Menu</v-btn>
+          <v-btn class="form-btn" style="background:#fbbf24;color:#1e293b" @click="go('home')">Voltar ao Menu</v-btn>
         </div>
 
         <div class="card" id="orcamento-cliente" v-show="section === 'orcamento-cliente'">
@@ -81,7 +81,7 @@ const app = createApp({
           <v-textarea label="Texto do termo" id="termo-texto" rows="4" placeholder="Texto do termo"></v-textarea>
           <v-btn class="form-btn" onclick="salvarTermo()">Salvar</v-btn>
           <ul id="lista-termos" style="list-style:none;padding:0;margin-top:10px;"></ul>
-          <v-btn class="form-btn" style="background:#fbbf24;color:#1e293b" @click="open('home')">Voltar ao Menu</v-btn>
+          <v-btn class="form-btn" style="background:#fbbf24;color:#1e293b" @click="go('home')">Voltar ao Menu</v-btn>
         </div>
       </div>
     </v-main>
