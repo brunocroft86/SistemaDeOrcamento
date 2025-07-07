@@ -27,11 +27,14 @@ Você pode testar a aplicação online através do [GitHub Pages](https://brunoc
 
 ## Estrutura dos arquivos
 
-- **index.html** — Ponto de entrada da SPA e única página com Vue
+- **index.html** — Página inicial simples com atalhos para clientes e orçamentos
 - **domains/** — Scripts e estilos de cada domínio
   - **clientes/**
-    - **index.html** — Redireciona para `index.html?sec=cadastro-cliente`
+    - **index.html** — Redireciona para `lista-clientes.html`
+    - **lista-clientes.html** — Lista de clientes consumindo API futura
+    - **cadastro-cliente.html** — Formulário de cadastro de cliente
     - **cadastro-cliente.js** — Lógica de clientes
+    - **cadastro-cliente.page.js** — Inicialização da página de cadastro
     - **clientes.css** — Estilos do domínio
   - **orcamentos/**
     - **novo-orcamento.html** — Redireciona para `index.html?sec=cadastro-orcamento`
