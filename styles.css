@@ -97,6 +97,13 @@ input, select {
   background: var(--primary); color: #fff; border: none; border-radius: 9px; padding: 8px 13px;
   font-size: 0.98em; cursor: pointer; margin-bottom: 13px; font-weight: 500;
 }
+.tel-field { display:flex; gap:8px; margin-bottom:8px; }
+.tel-field input { flex:1; }
+.remove-tel-btn {
+  background: var(--danger); color: #fff; border: none; border-radius: 9px;
+  padding: 5px 10px; font-size: 1.03em; cursor: pointer; margin-left: 3px;
+}
+.tel-list { margin-bottom: 10px; }
 .itens-lista-total {
   font-size: .98em; text-align: right; margin-top: 5px; margin-bottom: 2px;
   color: #1e293b;

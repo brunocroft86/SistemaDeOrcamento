@@ -12,7 +12,7 @@ Você pode testar a aplicação online através do [GitHub Pages](https://brunoc
 
 ## Funcionalidades
 
-- Cadastro de clientes com nome, sobrenome, CPF, telefone e endereço
+- Cadastro de clientes com nome, sobrenome, CPF, múltiplos telefones e endereço
 - Pesquisa dinâmica de clientes
 - Criação e edição de orçamentos para clientes cadastrados
 - Adição de múltiplos itens em cada orçamento

@@ -3,14 +3,15 @@ let termos = [];
 let termoEditando = null;
 
 function salvarTermo() {
-  const nome = capitalizar(document.getElementById('termo-nome').value);
-  const texto = document.getElementById('termo-texto').value.trim();
-  if (!nome || !texto) return;
+  const nome = document.getElementById('termo-nome').value;
+  const texto = document.getElementById('termo-texto').value;
+  if (!nome.trim() || !texto.trim()) return;
+  const termo = new Termo(nome, texto);
   if (termoEditando !== null) {
-    termos[termoEditando] = { nome, texto };
+    termos[termoEditando] = termo;
     termoEditando = null;
   } else {
-    termos.push({ nome, texto });
+    termos.push(termo);
   }
   atualizarListaTermos();
   document.getElementById('termo-nome').value = '';

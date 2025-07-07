@@ -23,10 +23,10 @@ function exibirOrcamento() {
   }
   const div = document.getElementById('orcamento-dados');
   div.innerHTML = `
-    <b class="capitalize">${orc.cliente}</b><br>
-    CPF: <span style="font-size:.97em">${orc.cpf}</span><br>
-    Tel: <span style="font-size:.97em">${orc.telefone || ''}</span><br>
-    <span style="font-size:.96em;color:#777;" class="capitalize">${orc.endereco || ''}</span>
+    <b class="capitalize">${orc.cliente.nomeCompleto}</b><br>
+    CPF: <span style="font-size:.97em">${orc.cliente.cpf}</span><br>
+    Tel: <span style="font-size:.97em">${orc.cliente.telefonesFormatados || ''}</span><br>
+    <span style="font-size:.96em;color:#777;" class="capitalize">${orc.cliente.endereco || ''}</span>
     <ul style="padding-left:17px;margin:4px 0 5px 0;">
       ${orc.itens.map(it=>`<li class="capitalize">${it.descricao} - <span>${formatarReal(it.valor)}</span></li>`).join('')}
     </ul>
