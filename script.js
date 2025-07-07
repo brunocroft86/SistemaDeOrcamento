@@ -28,52 +28,6 @@ function showAviso(msg, cor = "#2563eb") {
   }
 }
 
-// Dados temporários em memória enquanto a API não estiver disponível
-let clientes = [];
-let orcamentos = [];
-let orcamentoEditando = null;
-let termoAtual = null; // usado para inserir texto adicional nos orçamentos
-
-let oldShowSection = function () {};
-if (typeof showSection === "function") oldShowSection = showSection;
-
-showSection = function (id) {
-  if (typeof oldShowSection === "function") oldShowSection(id);
-
-  if (window.app) window.app.section = id;
-
-
-  if (id === 'cadastro-cliente') {
-    fecharClienteDetalhe();
-    atualizarListaClientes();
-    setTimeout(() => {
-      const busca = document.getElementById('buscaCliente');
-      if (busca) busca.focus();
-    }, 200);
-  }
-  if (id === 'cadastro-orcamento') {
-    if (window.app) {
-      window.app.clientesOptions = clientes.map((c, i) => ({
-        idx: i,
-        label: `${c.nome} ${c.sobrenome} - ${c.cpf} - ${c.telefone}`
-      }));
-      window.app.clienteSelecionado = clientes.length === 1 ? 0 : null;
-    }
-    if (document.getElementById('itens-orcamento').children.length === 0) adicionarItem();
-    setTimeout(() => {
-      const campo = document.querySelector('#cliente-orcamento-autocomplete input');
-      if (campo) campo.focus();
-    }, 200);
-  }
-  if (id === 'lista-orcamento') {
-    atualizarListaOrcamento();
-    setTimeout(() => {
-      let busca = document.getElementById('search');
-      if (busca) busca.focus();
-    }, 200);
-  }
-  if (id !== 'cadastro-orcamento') resetOrcamentoForm();
-}
 
 function formatarReal(valor) {
   return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
