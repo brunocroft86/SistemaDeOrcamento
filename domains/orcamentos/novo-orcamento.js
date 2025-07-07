@@ -1,40 +1,4 @@
 // Funções para criação e edição de orçamentos
-function filtrarSugestoesCliente() {
-  let busca = document.getElementById('cliente-orcamento-busca').value.toLowerCase().trim();
-  let lista = clientes.map((c,i) => ({
-    idx: i,
-    label: `${c.nome} ${c.sobrenome} - ${c.cpf} - ${c.telefone}`
-  }));
-  if(busca.length > 0) {
-    lista = lista.filter(c => c.label.toLowerCase().includes(busca));
-  }
-  let sugDiv = document.getElementById('sugestoes-clientes');
-  sugDiv.innerHTML = "";
-  if(lista.length === 0 && busca.length > 0) {
-    let n = document.createElement("div");
-    n.textContent = "Nenhum cliente encontrado.";
-    n.style.color = "#aaa";
-    sugDiv.appendChild(n);
-    document.getElementById('cliente-orcamento-indice').value = "";
-    return;
-  }
-  lista.slice(0,10).forEach(cli => {
-    let d = document.createElement("div");
-    d.textContent = cli.label;
-    d.onclick = function(){
-      document.getElementById('cliente-orcamento-busca').value = cli.label;
-      document.getElementById('cliente-orcamento-indice').value = cli.idx;
-      sugDiv.innerHTML = "";
-    };
-    sugDiv.appendChild(d);
-  });
-}
-
-document.addEventListener('click', function(e){
-  if(!e.target.closest('#cliente-orcamento-busca') && !e.target.closest('#sugestoes-clientes')) {
-    document.getElementById('sugestoes-clientes').innerHTML = "";
-  }
-});
 
 function adicionarItem(descricao = "", valor = "") {
   const container = document.getElementById('itens-orcamento');
@@ -81,8 +45,11 @@ function atualizarTotalItens() {
 }
 function salvarOrcamento() {
   if(clientes.length === 0) { showAviso("Cadastre um cliente primeiro!","#ef4444"); return; }
-  const idx = document.getElementById('cliente-orcamento-indice').value;
-  if(idx === "") { showAviso("Escolha o cliente da lista!","#ef4444"); return; }
+  const idx = window.app ? window.app.clienteSelecionado : null;
+  if(idx === null || idx === "" || idx < 0) {
+    showAviso("Escolha o cliente da lista!","#ef4444");
+    return;
+  }
   const clienteObj = clientes[idx];
   let itens = obterItensForm();
   if (itens.length == 0) { showAviso("Adicione ao menos 1 item!","#ef4444"); return; }
@@ -118,16 +85,17 @@ function resetOrcamentoForm() {
   orcamentoEditando = null;
   document.getElementById('btn-inserir-editar').textContent = 'Inserir';
   document.getElementById('orcamento-titulo').textContent = 'Novo orçamento';
+  if (window.app) window.app.clienteSelecionado = null;
 }
 function editarOrcamento(idx) {
   const orc = orcamentos[idx];
   showSection('cadastro-orcamento');
-  document.getElementById('cliente-orcamento-busca').value = `${orc.cliente} - ${orc.cpf} - ${orc.telefone}`;
-  let index = clientes.findIndex(c=>
-    `${c.nome} ${c.sobrenome}`.toLowerCase() === orc.cliente.toLowerCase() && c.cpf === orc.cpf
-  );
-  document.getElementById('cliente-orcamento-indice').value = index >=0 ? index : "";
-  document.getElementById('sugestoes-clientes').innerHTML = "";
+  if (window.app) {
+    const index = clientes.findIndex(c =>
+      `${c.nome} ${c.sobrenome}`.toLowerCase() === orc.cliente.toLowerCase() && c.cpf === orc.cpf
+    );
+    window.app.clienteSelecionado = index >= 0 ? index : null;
+  }
   const itensDiv = document.getElementById('itens-orcamento');
   itensDiv.innerHTML = '';
   orc.itens.forEach(it => adicionarItem(it.descricao, "R$ "+Number(it.valor).toLocaleString('pt-BR', {minimumFractionDigits:2})));
@@ -138,14 +106,10 @@ function editarOrcamento(idx) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  let campo = document.getElementById('cliente-orcamento-busca');
-  if (campo) {
-    campo.addEventListener('touchend', function(){
-      setTimeout(filtrarSugestoesCliente, 80);
-    }, false);
-    campo.addEventListener('focus', function(){
-      setTimeout(filtrarSugestoesCliente, 80);
-    }, false);
-    campo.addEventListener('input', filtrarSugestoesCliente, false);
+  if (window.app) {
+    window.app.clientesOptions = clientes.map((c, i) => ({
+      idx: i,
+      label: `${c.nome} ${c.sobrenome} - ${c.cpf} - ${c.telefone}`
+    }));
   }
 });
