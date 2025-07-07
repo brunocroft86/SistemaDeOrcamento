@@ -75,7 +75,6 @@ function salvarOrcamento() {
     });
     showAviso("Orçamento inserido!", "#10b981");
   }
-  localStorage.setItem('orcamentos', JSON.stringify(orcamentos));
   resetOrcamentoForm();
   showSection('lista-orcamento');
 }

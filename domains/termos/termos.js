@@ -1,9 +1,5 @@
+// Lista de termos mantida apenas em memória
 let termos = [];
-try {
-  termos = JSON.parse(localStorage.getItem('termos')) || [];
-} catch (e) {
-  termos = [];
-}
 let termoEditando = null;
 
 function salvarTermo() {
@@ -16,7 +12,6 @@ function salvarTermo() {
   } else {
     termos.push({ nome, texto });
   }
-  localStorage.setItem('termos', JSON.stringify(termos));
   atualizarListaTermos();
   document.getElementById('termo-nome').value = '';
   document.getElementById('termo-texto').value = '';
@@ -32,12 +27,11 @@ function editarTermo(idx) {
 function excluirTermo(idx) {
   if (!confirm('Excluir este termo?')) return;
   termos.splice(idx, 1);
-  localStorage.setItem('termos', JSON.stringify(termos));
   atualizarListaTermos();
 }
 
 function aplicarTermo(idx) {
-  localStorage.setItem('termoAtual', JSON.stringify(termos[idx]));
+  termoAtual = termos[idx];
   alert('Termo aplicado!');
 }
 

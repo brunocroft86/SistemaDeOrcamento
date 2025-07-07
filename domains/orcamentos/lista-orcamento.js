@@ -43,7 +43,6 @@ function atualizarListaOrcamento() {
 function removerOrcamento(idx) {
   if(confirm("Tem certeza que deseja remover este orçamento?")) {
     orcamentos.splice(idx, 1);
-    localStorage.setItem('orcamentos', JSON.stringify(orcamentos));
     atualizarListaOrcamento();
     showAviso("Orçamento removido!", "#ef4444");
   }
