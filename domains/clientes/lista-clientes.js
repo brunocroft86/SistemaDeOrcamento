@@ -29,7 +29,7 @@ createApp({
       <v-container>
         <v-row class="justify-space-between align-center">
           <h2>Clientes</h2>
-          <v-btn color="primary" href="../../index.html?sec=cadastro-cliente">Adicionar</v-btn>
+          <v-btn color="primary" href="cadastro-cliente.html">Adicionar</v-btn>
         </v-row>
         <v-list>
           <v-list-item v-for="c in clientes" :key="c.id">
