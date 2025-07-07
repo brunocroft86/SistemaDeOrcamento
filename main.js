@@ -97,7 +97,11 @@ const app = createApp({
         </div>
       </div>
     </v-main>
-    <v-snackbar v-model="snackbar.show" :color="snackbar.color" timeout="2100">
+    <v-snackbar
+      v-model="snackbar.show"
+      timeout="2100"
+      :style="{ background: snackbar.color, color: '#fff' }"
+    >
       {{ snackbar.msg }}
     </v-snackbar>
     <footer style="text-align:center;font-size:.96em;padding:15px 7px 11px 7px;color:#6c584c; background:#f9fafb;">

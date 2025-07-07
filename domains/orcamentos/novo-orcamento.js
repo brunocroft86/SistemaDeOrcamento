@@ -46,7 +46,10 @@ function atualizarTotalItens() {
 function salvarOrcamento() {
   if(clientes.length === 0) { showAviso("Cadastre um cliente primeiro!","#ef4444"); return; }
   const idx = window.app ? window.app.clienteSelecionado : null;
-  if(idx === null || idx === "") { showAviso("Escolha o cliente da lista!","#ef4444"); return; }
+  if(idx === null || idx === "" || idx < 0) {
+    showAviso("Escolha o cliente da lista!","#ef4444");
+    return;
+  }
   const clienteObj = clientes[idx];
   let itens = obterItensForm();
   if (itens.length == 0) { showAviso("Adicione ao menos 1 item!","#ef4444"); return; }
@@ -88,9 +91,10 @@ function editarOrcamento(idx) {
   const orc = orcamentos[idx];
   showSection('cadastro-orcamento');
   if (window.app) {
-    window.app.clienteSelecionado = clientes.findIndex(c =>
+    const index = clientes.findIndex(c =>
       `${c.nome} ${c.sobrenome}`.toLowerCase() === orc.cliente.toLowerCase() && c.cpf === orc.cpf
     );
+    window.app.clienteSelecionado = index >= 0 ? index : null;
   }
   const itensDiv = document.getElementById('itens-orcamento');
   itensDiv.innerHTML = '';
