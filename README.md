@@ -1,6 +1,6 @@
 # Amigos Móveis Planejados — Sistema de Orçamentos
 
-Agora utilizando **Vue 3** e **Vuetify 3** em uma única aplicação SPA para uma experiência moderna.
+Agora utilizando **Vue 3**, **Vuetify 3** e **Vue Router** em uma única aplicação SPA para uma experiência moderna.
 
 Sistema web simples, moderno e responsivo para **cadastro de clientes**, **criação de orçamentos** e **gestão de vendas**.
 
@@ -27,26 +27,13 @@ Você pode testar a aplicação online através do [GitHub Pages](https://brunoc
 
 ## Estrutura dos arquivos
 
-- **index.html** — Página inicial simples com atalhos para clientes e orçamentos
-- **domains/** — Scripts e estilos de cada domínio
-  - **clientes/**
-    - **index.html** — Redireciona para `lista-clientes.html`
-    - **lista-clientes.html** — Lista de clientes consumindo API futura
-    - **cadastro-cliente.html** — Formulário de cadastro de cliente
-    - **cadastro-cliente.js** — Lógica de clientes
-    - **cadastro-cliente.page.js** — Inicialização da página de cadastro
-    - **clientes.css** — Estilos do domínio
-  - **orcamentos/**
-    - **novo-orcamento.html** — Redireciona para `index.html?sec=cadastro-orcamento`
-    - **lista-orcamento.html** — Redireciona para `index.html?sec=lista-orcamento`
-    - **orcamento/**
-      - **index.html** — Redireciona para `index.html?sec=orcamento-cliente&idx=`
-      - **orcamento.js** — Script do orçamento individual
-    - **novo-orcamento.js** — Rotinas para criar e editar orçamentos
-    - **lista-orcamento.js** — Ações da listagem de orçamentos
-    - **orcamentos.css** — Estilos do domínio
-- **styles.css** — Estilo visual e cores
-- **script.js** — Funções e dados compartilhados
+- **index.html** — Ponto de entrada da aplicação SPA.
+- **src/** — Código principal com Vue Router e Vuetify.
+- **domains/** — Domínios organizados seguindo DDD
+  - **clientes/components/** — Componentes relacionados a clientes
+  - **clientes/services/** — Serviços do domínio de clientes
+  - **orcamentos/components/** — Componentes de orçamentos
+- **styles.css** — Estilo visual e cores (compartilhado)
 - **README.md** — Este arquivo
 
 ---

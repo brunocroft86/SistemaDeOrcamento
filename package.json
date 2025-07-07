@@ -1,0 +1,19 @@
+{
+  "name": "sistemadeorcamento",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "echo \"No tests\""
+  },
+  "dependencies": {
+    "vue": "^3.4.15",
+    "vue-router": "^4.2.5",
+    "vuetify": "^3.5.11"
+  },
+  "devDependencies": {
+    "vite": "^4.4.9",
+    "@vitejs/plugin-vue": "^4.0.0",
+    "vite-plugin-vuetify": "^1.0.0-beta.6"
+  }
+}
