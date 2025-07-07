@@ -95,3 +95,8 @@ const app = createApp({
 app.use(vuetify);
 window.app = app.mount('#app');
 
+const params = new URLSearchParams(window.location.search);
+const hash = window.location.hash.replace('#', '');
+const start = params.get('sec') || hash;
+if (start) showSection(start);
+

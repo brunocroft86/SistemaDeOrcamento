@@ -2,38 +2,12 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Detalhe do Orçamento - Amigos Móveis Planejados</title>
-  <link rel="stylesheet" href="../../../styles.css">
-  <link rel="stylesheet" href="../orcamentos.css">
-  <link href="https://cdn.jsdelivr.net/npm/vuetify@3.5.11/dist/vuetify.min.css" rel="stylesheet">
-</head>
-<body>
-  <div id="app">
-  <div class="header">
-    <div class="header-logo capitalize">Amigos Móveis Planejados</div>
-    <div class="header-desc">Gestão fácil de clientes e orçamentos<br>Móveis sob medida com confiança.</div>
-  </div>
-  <div class="container">
-    <div class="card" id="orcamento-cliente">
-      <h2>Orçamento do Cliente</h2>
-      <div id="orcamento-dados"></div>
-      <div id="orcamento-termo" style="margin-top:10px;font-size:.92em;color:#374151"></div>
-      <v-btn class="form-btn" style="background:#fbbf24;color:#1e293b" onclick="window.history.back()">Voltar</v-btn>
-    </div>
-  </div>
-</div>
-  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vuetify@3.5.11/dist/vuetify.min.js"></script>
-  <script src="../../../script.js"></script>
-  <script src="orcamento.js"></script>
+  <title>Orçamento do Cliente</title>
   <script>
-    const { createApp } = Vue;
-    const { createVuetify } = Vuetify;
-    createApp({}).use(createVuetify()).mount('#app');
+    const p = new URLSearchParams(window.location.search);
+    const idx = p.get('idx') || '';
+    window.location.replace(`../../../index.html?sec=orcamento-cliente${idx ? `&idx=${idx}` : ''}`);
   </script>
-  <footer style="text-align:center;font-size:.96em;padding:15px 7px 11px 7px;color:#6c584c; background:#f9fafb;">
-    Sistema desenvolvido por <b class="capitalize">João & Bruno</b>
-  </footer>
-</body>
+</head>
+<body>Redirecionando...</body>
 </html>
