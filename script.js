@@ -52,32 +52,16 @@ let orcamentoEditando = null;
 let oldShowSection = function () {};
 if (typeof showSection === "function") oldShowSection = showSection;
 
-const BASE_DIR = (document.currentScript && document.currentScript.src || '')
-  .replace(/\/script\.js(?:\?.*)?$/, '/');
-
 showSection = function (id) {
   if (typeof oldShowSection === "function") oldShowSection(id);
 
-  const pageMap = {
-    'home': BASE_DIR + 'index.html',
-    'cadastro-cliente': BASE_DIR + 'domains/clientes/index.html',
-    'cadastro-orcamento': BASE_DIR + 'domains/orcamentos/novo-orcamento.html',
-    'lista-orcamento': BASE_DIR + 'domains/orcamentos/lista-orcamento.html',
-    'orcamento-cliente': BASE_DIR + 'domains/orcamentos/orcamento/index.html',
-    'gerenciar-termo': BASE_DIR + 'domains/termos/index.html'
-  };
+  if (window.app) window.app.section = id;
 
-  const el = document.getElementById(id);
-  if (!el) {
-    if (pageMap[id]) window.location.href = pageMap[id];
-    return;
-  }
-
-  ['home','cadastro-cliente','cadastro-orcamento','lista-orcamento'].forEach(sec => {
+  ['home','cadastro-cliente','cadastro-orcamento','lista-orcamento',
+   'orcamento-cliente','gerenciar-termo'].forEach(sec => {
     const s = document.getElementById(sec);
-    if (s) s.style.display = 'none';
+    if (s) s.style.display = sec === id ? 'block' : 'none';
   });
-  el.style.display = 'block';
 
   if (id === 'cadastro-cliente') {
     fecharClienteDetalhe();

@@ -1,6 +1,6 @@
 # Amigos Móveis Planejados — Sistema de Orçamentos
 
-Agora utilizando **Vue 3** e **Vuetify 3** para uma experiência mais moderna.
+Agora utilizando **Vue 3** e **Vuetify 3** em uma única aplicação SPA para uma experiência moderna.
 
 Sistema web simples, moderno e responsivo para **cadastro de clientes**, **criação de orçamentos** e **gestão de vendas**.
 
@@ -27,24 +27,24 @@ Você pode testar a aplicação online através do [GitHub Pages](https://joaona
 
 ## Estrutura dos arquivos
 
-- **index.html** — Página inicial com o menu principal
-- **domains/** — Agrupa todos os domínios
-  - **clientes/** — Domínio de clientes
-    - **index.html** — Tela para cadastro e consulta de clientes
-    - **cadastro-cliente.js** — Lógica da tela de clientes
-    - **clientes.css** — Estilos específicos do domínio
-  - **orcamentos/** — Domínio de orçamentos
-    - **novo-orcamento.html** — Formulário para criação de orçamentos
-    - **lista-orcamento.html** — Listagem e gestão de orçamentos existentes
-    - **orcamento/** — Subdomínio para visualizar o orçamento de um cliente
-      - **index.html** — Página com os detalhes do orçamento
+- **index.html** — Ponto de entrada da SPA e única página com Vue
+- **domains/** — Scripts e estilos de cada domínio
+  - **clientes/**
+    - **index.html** — Redireciona para `index.html?sec=cadastro-cliente`
+    - **cadastro-cliente.js** — Lógica de clientes
+    - **clientes.css** — Estilos do domínio
+  - **orcamentos/**
+    - **novo-orcamento.html** — Redireciona para `index.html?sec=cadastro-orcamento`
+    - **lista-orcamento.html** — Redireciona para `index.html?sec=lista-orcamento`
+    - **orcamento/**
+      - **index.html** — Redireciona para `index.html?sec=orcamento-cliente&idx=`
       - **orcamento.js** — Script do orçamento individual
     - **novo-orcamento.js** — Rotinas para criar e editar orçamentos
     - **lista-orcamento.js** — Ações da listagem de orçamentos
-    - **orcamentos.css** — Estilos específicos do domínio
-- **styles.css** — Estilo visual, responsividade, fontes, cores
+    - **orcamentos.css** — Estilos do domínio
+- **styles.css** — Estilo visual e cores
 - **script.js** — Funções e dados compartilhados
-- **README.md** — Este arquivo com instruções
+- **README.md** — Este arquivo
 
 ---
 
@@ -56,4 +56,3 @@ Se quiser mais funcionalidades (assinatura digital, WhatsApp, impressão, Pix, r
 ---
 
 **Desenvolvido por eu ele.**  
-
