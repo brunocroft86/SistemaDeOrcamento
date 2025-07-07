@@ -1,5 +1,7 @@
 # Amigos Móveis Planejados — Sistema de Orçamentos
 
+Agora utilizando **Vue 3** e **Vuetify 3** para uma experiência mais moderna.
+
 Sistema web simples, moderno e responsivo para **cadastro de clientes**, **criação de orçamentos** e **gestão de vendas**.
 
 Desenvolvido especialmente para a loja **Amigos Móveis Planejados**.
