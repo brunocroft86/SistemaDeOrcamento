@@ -28,18 +28,11 @@ function showAviso(msg, cor = "#2563eb") {
   }
 }
 
-let clientes, orcamentos;
-try {
-  clientes = JSON.parse(localStorage.getItem('clientes')) || [];
-} catch (e) {
-  clientes = [];
-}
-try {
-  orcamentos = JSON.parse(localStorage.getItem('orcamentos')) || [];
-} catch (e) {
-  orcamentos = [];
-}
+// Dados temporários em memória enquanto a API não estiver disponível
+let clientes = [];
+let orcamentos = [];
 let orcamentoEditando = null;
+let termoAtual = null; // usado para inserir texto adicional nos orçamentos
 
 let oldShowSection = function () {};
 if (typeof showSection === "function") oldShowSection = showSection;

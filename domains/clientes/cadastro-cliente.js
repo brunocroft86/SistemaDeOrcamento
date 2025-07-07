@@ -8,7 +8,6 @@ function salvarCliente() {
   if(!nome || !sobrenome || !cpf || !telefone || !endereco) { showAviso("Preencha todos os campos!", "#ef4444"); return; }
   if (clientes.find(c => c.cpf === cpf)) { showAviso("CPF já cadastrado!", "#eab308"); return; }
   clientes.push({nome, sobrenome, cpf, telefone, endereco});
-  localStorage.setItem('clientes', JSON.stringify(clientes));
   document.getElementById('nome').value = '';
   document.getElementById('sobrenome').value = '';
   document.getElementById('cpf').value = '';
@@ -77,7 +76,6 @@ function fecharClienteDetalhe() {
 function excluirCliente(idx){
   if(confirm("Tem certeza que deseja excluir este cliente?")) {
     clientes.splice(idx,1);
-    localStorage.setItem('clientes', JSON.stringify(clientes));
     atualizarListaClientes();
     showAviso("Cliente removido!", "#ef4444");
   }

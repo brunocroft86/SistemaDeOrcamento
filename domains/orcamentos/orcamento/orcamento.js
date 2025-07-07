@@ -4,15 +4,9 @@ function obterParametro(nome) {
 }
 
 function inserirTermo() {
-  let termo = null;
-  try {
-    termo = JSON.parse(localStorage.getItem('termoAtual'));
-  } catch (e) {
-    termo = null;
-  }
-  if (termo && termo.texto) {
+  if (termoAtual && termoAtual.texto) {
     const div = document.getElementById('orcamento-termo');
-    if (div) div.textContent = termo.texto;
+    if (div) div.textContent = termoAtual.texto;
   }
 }
 
