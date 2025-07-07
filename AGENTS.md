@@ -12,12 +12,23 @@ Este repositório deve seguir os princípios de **Domain Driven Design (DDD)**, 
 - **Organização de pastas:** coloque cada domínio em uma pasta própria dentro de `domains/`. Outros módulos ou serviços devem seguir a mesma estrutura.
 - **Testes:** cada módulo/diretório de domínio deve ter testes unitários e/ou de integração.
 
+## Diretrizes para uso de Vue e Vuetify
+- Utilize componentes do **Vuetify** sempre que possível para garantir padronização visual.
+- Crie componentes Vue reutilizáveis e com responsabilidade única.
+- Use a extensão `.vue` para todos os componentes.
+- Siga a estrutura de arquivos: `<NomeDoComponente>.vue`, com PascalCase.
+- Prefira a composição por slots e props ao invés de lógica acoplada.
+- Documente as props e eventos dos componentes.
+- Utilize o padrão de diretórios: componentes globais em `src/components/`, específicos de domínio em `domains/<domínio>/components/`.
+- Sempre utilize o sistema de temas e variáveis do Vuetify para cores e espaçamentos.
+- Evite lógica de negócio nos componentes de UI; mantenha-a nos serviços ou stores.
+
 ## Regras de commit
 - Descreva de forma objetiva as alterações, mencionando o domínio afetado quando aplicável.
 - Todo commit deve ser em portugues-br.
 - Certifique-se de que os testes e linters executem com sucesso antes do commit.
 
-Ao adicionar este `AGENTS.md`, os agentes do Codex sempre lerão essas instruções para manter o padrão de DDD, POO e SOLID ao modificar o projeto.
+Ao adicionar este `AGENTS.md`, os agentes do Codex sempre lerão essas instruções para manter o padrão de DDD, POO, SOLID, Vue e Vuetify ao modificar o projeto.
 
 ## Regras de resposta no codex
 - Sempre interaja comigo no chat em portugues-br
