@@ -1,0 +1,13 @@
+#gerenciar-termo {
+  border-left: 4px solid var(--primary);
+  padding-left: 10px;
+}
+.termo-item button {
+  margin-left: 5px;
+}
+
+textarea#termo-texto {
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+}
