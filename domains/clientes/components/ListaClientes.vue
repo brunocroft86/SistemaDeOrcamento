@@ -7,8 +7,14 @@
       <v-btn color="primary" to="/clientes/novo">Adicionar</v-btn>
     </v-row>
     <v-list>
-      <v-list-item v-for="c in clientes" :key="c.id" @click="abrir(c)" class="cursor-pointer">
+      <v-list-item
+        v-for="c in clientes"
+        :key="c.id"
+        @click="abrir(c)"
+        class="cursor-pointer"
+      >
         <v-list-item-title>{{ c.nome }}</v-list-item-title>
+        <v-list-item-subtitle>{{ c.telefones ? c.telefones.join(', ') : '' }}</v-list-item-subtitle>
       </v-list-item>
     </v-list>
   </v-container>

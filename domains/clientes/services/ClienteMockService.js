@@ -6,7 +6,7 @@ export default class ClienteMockService {
         nome: 'João Silva',
         sobrenome: 'Silva',
         cpf: '111.111.111-11',
-        telefone: '(11) 11111-1111',
+        telefones: ['(11) 11111-1111'],
         endereco: 'Rua A, 100'
       },
       {
@@ -14,7 +14,7 @@ export default class ClienteMockService {
         nome: 'Maria Souza',
         sobrenome: 'Souza',
         cpf: '222.222.222-22',
-        telefone: '(22) 22222-2222',
+        telefones: ['(22) 22222-2222', '(22) 99999-9999'],
         endereco: 'Rua B, 200'
       },
       {
@@ -22,7 +22,7 @@ export default class ClienteMockService {
         nome: 'Pedro Santos',
         sobrenome: 'Santos',
         cpf: '333.333.333-33',
-        telefone: '(33) 33333-3333',
+        telefones: ['(33) 33333-3333'],
         endereco: 'Rua C, 300'
       }
     ])

@@ -8,7 +8,24 @@
       <v-text-field label="Nome" v-model="form.nome" />
       <v-text-field label="Sobrenome" v-model="form.sobrenome" />
       <v-text-field label="CPF" v-model="form.cpf" />
-      <v-text-field label="Telefone" v-model="form.telefone" />
+
+      <div v-for="(tel, i) in form.telefones" :key="i" class="d-flex mb-2">
+        <v-text-field
+          class="flex-grow-1"
+          label="Telefone"
+          v-model="form.telefones[i]"
+        />
+        <v-btn
+          icon="mdi-delete"
+          variant="plain"
+          @click="removerTelefone(i)"
+          v-if="form.telefones.length > 1"
+        />
+      </div>
+      <v-btn variant="tonal" class="mb-4" @click="adicionarTelefone">
+        Adicionar telefone
+      </v-btn>
+
       <v-text-field label="Endereço" v-model="form.endereco" />
     </v-form>
   </v-container>
@@ -18,15 +35,30 @@
 export default {
   data() {
     return {
-      form: { nome: '', sobrenome: '', cpf: '', telefone: '', endereco: '' }
+      form: { nome: '', sobrenome: '', cpf: '', telefones: [''], endereco: '' }
     }
   },
   mounted() {
     const q = this.$route.query.cliente
     if (q) {
       try {
-        this.form = JSON.parse(q)
+        const dados = JSON.parse(q)
+        if (Array.isArray(dados.telefones)) {
+          this.form = { ...this.form, ...dados }
+        } else if (dados.telefone) {
+          this.form = { ...this.form, ...dados, telefones: [dados.telefone] }
+        } else {
+          this.form = { ...this.form, ...dados }
+        }
       } catch (e) {}
+    }
+  },
+  methods: {
+    adicionarTelefone() {
+      this.form.telefones.push('')
+    },
+    removerTelefone(idx) {
+      if (this.form.telefones.length > 1) this.form.telefones.splice(idx, 1)
     }
   }
 }
