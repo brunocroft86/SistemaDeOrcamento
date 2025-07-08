@@ -1,7 +1,7 @@
-import type { ClienteData } from '../Cliente'
+import type { IClienteData } from '../Cliente'
 
 export default class ClienteAPIService {
-  static async listar(): Promise<ClienteData[]> {
+  static async listar(): Promise<IClienteData[]> {
     try {
       const resp = await fetch('/api/clientes');
       if (!resp.ok) return [];

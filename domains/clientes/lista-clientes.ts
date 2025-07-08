@@ -1,4 +1,4 @@
-import type { ClienteData } from './Cliente'
+import type { IClienteData } from './Cliente'
 import ClienteAPIService from './services/ClienteAPIService'
 
 const { createApp } = Vue;
@@ -8,7 +8,7 @@ const vuetify = createVuetify();
 
 createApp({
   data() {
-    return { clientes: [] as ClienteData[] };
+    return { clientes: [] as IClienteData[] };
   },
   async mounted() {
     this.clientes = await ClienteAPIService.listar();

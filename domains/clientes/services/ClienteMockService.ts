@@ -1,7 +1,7 @@
-import type { ClienteData } from '../Cliente'
+import type { IClienteData } from '../Cliente'
 
 export default class ClienteMockService {
-  static listar(): Promise<ClienteData[]> {
+  static listar(): Promise<IClienteData[]> {
     return Promise.resolve([
       {
         id: 1,

@@ -1,4 +1,4 @@
-import { Orcamento, OrcamentoItem } from './Orcamento'
+import { Orcamento, IOrcamentoItem } from './Orcamento'
 // Funções para criação e edição de orçamentos
 
 function adicionarItem(descricao: string = "", valor: string = ""): void {
@@ -26,10 +26,10 @@ function formatarCampoReal(input: HTMLInputElement): void {
   input.value = 'R$ ' + v
   atualizarTotalItens()
 }
-function obterItensForm(): OrcamentoItem[] {
+function obterItensForm(): IOrcamentoItem[] {
   const container = document.getElementById('itens-orcamento') as HTMLElement
   const campos = container.querySelectorAll('.item-fields');
-  let itens: OrcamentoItem[] = [];
+  let itens: IOrcamentoItem[] = [];
   for(const campo of campos) {
     let desc = capitalizar(campo.querySelector('.desc').value.trim());
     let valor = campo.querySelector('.valor').value.trim();

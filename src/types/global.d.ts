@@ -1,24 +1,24 @@
-interface SnackbarState {
+interface ISnackbarState {
   msg: string
   color: string
   show: boolean
 }
 
-interface AppState {
-  snackbar: SnackbarState
+interface IAppState {
+  snackbar: ISnackbarState
   section?: string
   clientesOptions?: { idx: number; label: string }[]
   clienteSelecionado?: number | null
 }
 
 interface Window {
-  app?: AppState
+  app?: IAppState
 }
 
 import type { ITelefone, Telefone as TelefoneClass } from '../../domains/telefones/Telefone'
-import type { Cliente, ClienteData } from '../../domains/clientes/Cliente'
-import type { Orcamento, OrcamentoData, OrcamentoItem } from '../../domains/orcamentos/Orcamento'
-import type { Termo, TermoData } from '../../domains/termos/Termo'
+import type { Cliente, IClienteData } from '../../domains/clientes/Cliente'
+import type { Orcamento, IOrcamentoData, IOrcamentoItem } from '../../domains/orcamentos/Orcamento'
+import type { Termo, ITermoData } from '../../domains/termos/Termo'
 
 declare const Telefone: typeof TelefoneClass
 

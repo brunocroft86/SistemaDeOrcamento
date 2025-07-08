@@ -1,21 +1,21 @@
 import { Cliente } from '../clientes/Cliente'
 
-export interface OrcamentoItem {
+export interface IOrcamentoItem {
   descricao: string
   valor: number
 }
 
-export interface OrcamentoData {
+export interface IOrcamentoData {
   cliente: Cliente
-  itens: OrcamentoItem[]
+  itens: IOrcamentoItem[]
   readonly total: number
 }
 
-export class Orcamento implements OrcamentoData {
+export class Orcamento implements IOrcamentoData {
   cliente: Cliente
-  itens: OrcamentoItem[]
+  itens: IOrcamentoItem[]
 
-  constructor(cliente: Cliente, itens: OrcamentoItem[] = []) {
+  constructor(cliente: Cliente, itens: IOrcamentoItem[] = []) {
     if (!(cliente instanceof Cliente)) {
       throw new Error('Cliente inválido')
     }

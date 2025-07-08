@@ -1,6 +1,6 @@
 import { Telefone } from '../telefones/Telefone'
 
-export interface ClienteData {
+export interface IClienteData {
   nome: string
   sobrenome: string
   cpf: string
@@ -8,7 +8,7 @@ export interface ClienteData {
   endereco: string
 }
 
-export interface ICliente extends ClienteData {
+export interface ICliente extends IClienteData {
   readonly nomeCompleto: string
   readonly telefonesFormatados: string
   readonly telefone: string

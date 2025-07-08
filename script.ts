@@ -38,7 +38,7 @@ function showAviso(msg: string, cor = "#2563eb"): void {
 }
 
 // Dados temporários em memória enquanto a API não estiver disponível
-interface ClienteLista {
+interface IClienteLista {
   nome: string
   sobrenome: string
   cpf: string
@@ -46,21 +46,21 @@ interface ClienteLista {
   endereco: string
 }
 
-interface OrcamentoSimples {
-  cliente: ClienteLista & { nomeCompleto: string }
+interface IOrcamentoSimples {
+  cliente: IClienteLista & { nomeCompleto: string }
   itens: { descricao: string; valor: number }[]
   total: number
 }
 
-interface Termo {
+interface ITermo {
   nome: string
   texto: string
 }
 
-let clientes: ClienteLista[] = [];
-let orcamentos: OrcamentoSimples[] = [];
-let orcamentoEditando: OrcamentoSimples | null = null;
-let termoAtual: Termo | null = null; // usado para inserir texto adicional nos orçamentos
+let clientes: IClienteLista[] = [];
+let orcamentos: IOrcamentoSimples[] = [];
+let orcamentoEditando: IOrcamentoSimples | null = null;
+let termoAtual: ITermo | null = null; // usado para inserir texto adicional nos orçamentos
 
 let oldShowSection: ((id: string) => void) | null = function () {};
 if (typeof showSection === "function") oldShowSection = showSection;
@@ -82,7 +82,7 @@ showSection = function (id: string): void {
   }
   if (id === 'cadastro-orcamento') {
     if (window.app) {
-      window.app.clientesOptions = clientes.map((c: ClienteLista, i: number) => ({
+      window.app.clientesOptions = clientes.map((c: IClienteLista, i: number) => ({
         idx: i,
         label: `${c.nome} ${c.sobrenome} - ${c.cpf} - ${c.telefonesFormatados}`
       }));
