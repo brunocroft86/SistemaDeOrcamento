@@ -1,5 +1,5 @@
 class ClienteAPIService {
-  static async listar() {
+  static async listar(): Promise<ClienteData[]> {
     try {
       const resp = await fetch('/api/clientes');
       if (!resp.ok) return [];
@@ -18,7 +18,7 @@ const vuetify = createVuetify();
 
 createApp({
   data() {
-    return { clientes: [] };
+    return { clientes: [] as ClienteData[] };
   },
   async mounted() {
     this.clientes = await ClienteAPIService.listar();

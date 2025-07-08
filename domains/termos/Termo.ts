@@ -1,7 +1,10 @@
-class Termo {
-  constructor(nome, texto) {
-    this.nome = capitalizar(nome || '').trim();
-    this.texto = (texto || '').trim();
+class Termo implements TermoData {
+  nome: string
+  texto: string
+
+  constructor(nome: string, texto: string) {
+    this.nome = capitalizar(nome || '').trim()
+    this.texto = (texto || '').trim()
   }
 }
 

@@ -1,5 +1,5 @@
 export default class ClienteMockService {
-  static listar() {
+  static listar(): Promise<ClienteData[]> {
     return Promise.resolve([
       {
         id: 1,

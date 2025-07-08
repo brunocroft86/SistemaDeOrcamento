@@ -1,16 +1,16 @@
-function obterParametro(nome) {
-  const url = new URL(window.location.href);
-  return url.searchParams.get(nome);
+function obterParametro(nome: string): string | null {
+  const url = new URL(window.location.href)
+  return url.searchParams.get(nome)
 }
 
-function inserirTermo() {
+function inserirTermo(): void {
   if (termoAtual && termoAtual.texto) {
     const div = document.getElementById('orcamento-termo');
     if (div) div.textContent = termoAtual.texto;
   }
 }
 
-function exibirOrcamento() {
+function exibirOrcamento(): void {
   const idx = obterParametro('idx');
   if (idx === null) {
     document.getElementById('orcamento-dados').textContent = 'Orçamento não encontrado.';
@@ -21,7 +21,7 @@ function exibirOrcamento() {
     document.getElementById('orcamento-dados').textContent = 'Orçamento não encontrado.';
     return;
   }
-  const div = document.getElementById('orcamento-dados');
+  const div = document.getElementById('orcamento-dados') as HTMLElement;
   div.innerHTML = `
     <b class="capitalize">${orc.cliente.nomeCompleto}</b><br>
     CPF: <span style="font-size:.97em">${orc.cliente.cpf}</span><br>
