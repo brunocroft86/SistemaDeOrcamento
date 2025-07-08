@@ -15,7 +15,12 @@ interface Window {
   app?: AppState
 }
 
-declare class Telefone {
+interface ITelefone {
+  numero: string
+  toString(): string
+}
+
+declare class Telefone implements ITelefone {
   numero: string
   constructor(numero?: string)
   toString(): string

@@ -1,4 +1,9 @@
-class Telefone {
+interface ITelefone {
+  numero: string
+  toString(): string
+}
+
+class Telefone implements ITelefone {
   numero: string
 
   constructor(numero: string = '') {
@@ -27,4 +32,6 @@ class Telefone {
   }
 }
 
-window.Telefone = Telefone;
+// Disponibiliza a classe no escopo global para scripts nao modulados
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+;(window as any).Telefone = Telefone
