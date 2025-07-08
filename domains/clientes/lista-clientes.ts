@@ -1,15 +1,5 @@
-class ClienteAPIService {
-  static async listar(): Promise<ClienteData[]> {
-    try {
-      const resp = await fetch('/api/clientes');
-      if (!resp.ok) return [];
-      return await resp.json();
-    } catch (e) {
-      console.error(e);
-      return [];
-    }
-  }
-}
+import type { ClienteData } from './Cliente'
+import ClienteAPIService from './services/ClienteAPIService'
 
 const { createApp } = Vue;
 const { createVuetify } = Vuetify;

@@ -1,9 +1,9 @@
-interface ITelefone {
+export interface ITelefone {
   numero: string
   toString(): string
 }
 
-class Telefone implements ITelefone {
+export class Telefone implements ITelefone {
   numero: string
 
   constructor(numero: string = '') {

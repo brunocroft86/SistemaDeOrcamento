@@ -1,3 +1,5 @@
+import type { ClienteData } from '../Cliente'
+
 export default class ClienteAPIService {
   static async listar(): Promise<ClienteData[]> {
     try {

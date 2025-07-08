@@ -1,4 +1,9 @@
-class Termo implements TermoData {
+export interface TermoData {
+  nome: string
+  texto: string
+}
+
+export class Termo implements TermoData {
   nome: string
   texto: string
 

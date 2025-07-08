@@ -1,4 +1,17 @@
-class Orcamento implements OrcamentoData {
+import { Cliente } from '../clientes/Cliente'
+
+export interface OrcamentoItem {
+  descricao: string
+  valor: number
+}
+
+export interface OrcamentoData {
+  cliente: Cliente
+  itens: OrcamentoItem[]
+  readonly total: number
+}
+
+export class Orcamento implements OrcamentoData {
   cliente: Cliente
   itens: OrcamentoItem[]
 

@@ -1,12 +1,17 @@
-export interface ICliente {
-  nome: string;
-  sobrenome: string;
-  cpf: string;
-  telefones: Telefone[];
-  endereco: string;
-  readonly nomeCompleto: string;
-  readonly telefonesFormatados: string;
-  readonly telefone: string;
+import { Telefone } from '../telefones/Telefone'
+
+export interface ClienteData {
+  nome: string
+  sobrenome: string
+  cpf: string
+  telefones: Telefone[]
+  endereco: string
+}
+
+export interface ICliente extends ClienteData {
+  readonly nomeCompleto: string
+  readonly telefonesFormatados: string
+  readonly telefone: string
 }
 
 export class Cliente implements ICliente {

@@ -1,3 +1,4 @@
+import { Orcamento, OrcamentoItem } from './Orcamento'
 // Funções para criação e edição de orçamentos
 
 function adicionarItem(descricao: string = "", valor: string = ""): void {

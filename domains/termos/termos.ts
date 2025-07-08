@@ -1,3 +1,4 @@
+import { Termo } from './Termo'
 // Lista de termos mantida apenas em memória
 let termos: Termo[] = [];
 let termoEditando: number | null = null;

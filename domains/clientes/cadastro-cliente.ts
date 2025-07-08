@@ -1,3 +1,4 @@
+import { Cliente } from './Cliente'
 // Funções de gerenciamento de clientes
 
 function adicionarTelefone(valor: string = ''): void {
