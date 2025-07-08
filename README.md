@@ -38,7 +38,7 @@ Você pode testar a aplicação online através do [GitHub Pages](https://brunoc
 
 ## Desenvolvimento em container
 
-Para usar o ambiente de desenvolvimento do **Dev Containers** no VS Code, abra a pasta do projeto e escolha **Reopen in Container**. O VS Code montará o container a partir da imagem definida em `.devcontainer/devcontainer.json` e executará `npm install` automaticamente.
+Para usar o ambiente de desenvolvimento do **Dev Containers** no VS Code, abra a pasta do projeto e escolha **Reopen in Container**. O VS Code montará o container a partir da imagem definida em `.devcontainer/devcontainer.json` e executará `npm install` automaticamente. Sempre verifique os tipos executando `npm run typecheck` antes de commitar.
 
 ---
 
