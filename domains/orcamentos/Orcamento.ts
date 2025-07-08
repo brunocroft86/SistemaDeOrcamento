@@ -1,0 +1,60 @@
+import { Cliente } from '../clientes/Cliente';
+
+export interface ItemOrcamento {
+  descricao: string;
+  valor: number;
+}
+
+export interface IOrcamento {
+  cliente: Cliente;
+  itens: ItemOrcamento[];
+  readonly total: number;
+  gerarRecibo(loja?: string): string;
+}
+
+export class Orcamento implements IOrcamento {
+  cliente: Cliente;
+  itens: ItemOrcamento[];
+
+  constructor(cliente: Cliente, itens: ItemOrcamento[] = []) {
+    if (!(cliente instanceof Cliente)) {
+      throw new Error('Cliente inválido');
+    }
+    this.cliente = cliente;
+    this.itens = itens.map(it => ({
+      descricao: capitalizar(it.descricao || ''),
+      valor: Number(it.valor) || 0
+    }));
+  }
+
+  get total(): number {
+    return this.itens.reduce((s, i) => s + i.valor, 0);
+  }
+
+  gerarRecibo(loja: string = 'AMIGOS MÓVEIS PLANEJADOS'): string {
+    const data = new Date().toLocaleDateString('pt-BR');
+    return `╦══════════════════════╥
+        ${loja}
+╚══════════════════════╝
+
+Recibo Eletrônico - Orçamento
+
+Cliente: ${this.cliente.nomeCompleto}
+CPF: ${this.cliente.cpf}
+Telefones: ${this.cliente.telefonesFormatados || ''}
+Endereço: ${this.cliente.endereco}
+
+Itens:
+${this.itens
+      .map(it => `• ${capitalizar(it.descricao).padEnd(22, ' ')}  ${formatarReal(it.valor)}`)
+      .join('\n')}
+
+─────────────────────────
+TOTAL:        ${formatarReal(this.total)}
+─────────────────────────
+
+Data: ${data}
+Agradecemos pela preferência!`;
+  }
+}
+
