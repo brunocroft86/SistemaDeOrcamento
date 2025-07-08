@@ -1,21 +1,37 @@
-class Orcamento {
-  constructor(cliente, itens = []) {
+import { Cliente } from '../clientes/Cliente'
+
+export interface IOrcamentoItem {
+  descricao: string
+  valor: number
+}
+
+export interface IOrcamentoData {
+  cliente: Cliente
+  itens: IOrcamentoItem[]
+  readonly total: number
+}
+
+export class Orcamento implements IOrcamentoData {
+  cliente: Cliente
+  itens: IOrcamentoItem[]
+
+  constructor(cliente: Cliente, itens: IOrcamentoItem[] = []) {
     if (!(cliente instanceof Cliente)) {
-      throw new Error('Cliente inválido');
+      throw new Error('Cliente inválido')
     }
-    this.cliente = cliente;
+    this.cliente = cliente
     this.itens = itens.map(it => ({
       descricao: capitalizar(it.descricao || ''),
       valor: Number(it.valor) || 0
-    }));
+    }))
   }
 
-  get total() {
-    return this.itens.reduce((s, i) => s + i.valor, 0);
+  get total(): number {
+    return this.itens.reduce((s, i) => s + i.valor, 0)
   }
 
-  gerarRecibo(loja = 'AMIGOS MÓVEIS PLANEJADOS') {
-    const data = new Date().toLocaleDateString('pt-BR');
+  gerarRecibo(loja: string = 'AMIGOS MÓVEIS PLANEJADOS'): string {
+    const data = new Date().toLocaleDateString('pt-BR')
     return `╦══════════════════════╥
         ${loja}
 ╚══════════════════════╝

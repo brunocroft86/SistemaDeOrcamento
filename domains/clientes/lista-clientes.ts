@@ -1,15 +1,5 @@
-class ClienteAPIService {
-  static async listar() {
-    try {
-      const resp = await fetch('/api/clientes');
-      if (!resp.ok) return [];
-      return await resp.json();
-    } catch (e) {
-      console.error(e);
-      return [];
-    }
-  }
-}
+import type { IClienteData } from './Cliente'
+import ClienteAPIService from './services/ClienteAPIService'
 
 const { createApp } = Vue;
 const { createVuetify } = Vuetify;
@@ -18,7 +8,7 @@ const vuetify = createVuetify();
 
 createApp({
   data() {
-    return { clientes: [] };
+    return { clientes: [] as IClienteData[] };
   },
   async mounted() {
     this.clientes = await ClienteAPIService.listar();

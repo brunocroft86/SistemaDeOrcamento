@@ -1,19 +1,19 @@
 // Funções para listagem e ações sobre orçamentos
-function atualizarListaOrcamento() {
-  const ul = document.getElementById('orcamento-list');
-  const search = document.getElementById('search').value.trim().toLowerCase();
-  let filtrados = orcamentos.map((o, idx) => ({orc:o, idx}));
+function atualizarListaOrcamento(): void {
+  const ul = document.getElementById('orcamento-list') as HTMLElement
+  const search = (document.getElementById('search') as HTMLInputElement).value.trim().toLowerCase()
+  let filtrados = orcamentos.map((o, idx) => ({ orc: o, idx }))
   if (search.length > 0) {
     filtrados = filtrados.filter(entry =>
       entry.orc.cliente.nomeCompleto.toLowerCase().includes(search) ||
       entry.orc.cliente.cpf.replace(/\D/g,'').includes(search.replace(/\D/g,''))
     );
   }
-  ul.innerHTML = '';
+  ul.innerHTML = ''
   if(filtrados.length === 0) {
-    ul.innerHTML = "<li class='orcamento-item'>Nenhum orçamento cadastrado.</li>";
-    document.getElementById('soma-total').textContent = "";
-    return;
+    ul.innerHTML = "<li class='orcamento-item'>Nenhum orçamento cadastrado.</li>"
+    document.getElementById('soma-total')!.textContent = ""
+    return
   }
   let soma = 0;
   filtrados.forEach(({orc, idx}) => {
@@ -36,18 +36,18 @@ function atualizarListaOrcamento() {
         <button class="btn-view" onclick="verOrcamento(${idx})">Ver</button>
       </div>
     `;
-    ul.appendChild(li);
+    ul.appendChild(li)
   });
-  document.getElementById('soma-total').textContent = "Soma total: " + formatarReal(soma);
+  document.getElementById('soma-total')!.textContent = "Soma total: " + formatarReal(soma)
 }
-function removerOrcamento(idx) {
+function removerOrcamento(idx: number): void {
   if(confirm("Tem certeza que deseja remover este orçamento?")) {
     orcamentos.splice(idx, 1);
-    atualizarListaOrcamento();
+    atualizarListaOrcamento()
     showAviso("Orçamento removido!", "#ef4444");
   }
 }
-function compartilharOrcamento(idx) {
+function compartilharOrcamento(idx: number): void {
   const orc = orcamentos[idx];
   const loja = "AMIGOS MÓVEIS PLANEJADOS";
   const recibo = orc.gerarRecibo(loja);
@@ -64,11 +64,11 @@ function compartilharOrcamento(idx) {
       showAviso("Erro ao copiar. Tente manualmente.", "#ef4444");
     });
   } else {
-    prompt("Copie a nota eletrônica:", recibo);
+    prompt("Copie a nota eletrônica:", recibo)
   }
 }
 
-function verOrcamento(idx) {
+function verOrcamento(idx: number): void {
   window.location.href = `../../index.html?sec=orcamento-cliente&idx=${idx}`;
 }
 

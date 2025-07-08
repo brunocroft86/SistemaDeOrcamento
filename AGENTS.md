@@ -11,6 +11,7 @@ Este repositório deve seguir os princípios de **Domain Driven Design (DDD)**, 
   - Separe interfaces especializadas e injete dependências.
 - **Organização de pastas:** coloque cada domínio em uma pasta própria dentro de `domains/`. Outros módulos ou serviços devem seguir a mesma estrutura.
 - **Testes:** cada módulo/diretório de domínio deve ter testes unitários e/ou de integração.
+- **Interfaces:** toda interface criada no projeto deve possuir o prefixo `I`, como `ICliente` e `IOrcamento`.
 
 ## Diretrizes para uso de Vue e Vuetify
 - Utilize componentes do **Vuetify** sempre que possível para garantir padronização visual.
@@ -27,6 +28,7 @@ Este repositório deve seguir os princípios de **Domain Driven Design (DDD)**, 
 - Descreva de forma objetiva as alterações, mencionando o domínio afetado quando aplicável.
 - Todo commit deve ser em portugues-br.
 - Certifique-se de que os testes e linters executem com sucesso antes do commit.
+- Sempre execute `npm run typecheck` e `npm test` antes de gerar um commit.
 
 ## Regras para criação de branches
 - Nunca utilize caracteres especiais (como acentos, espaços, cedilha, etc) nos nomes das branches. Use apenas letras minúsculas, números e hífens (`-`).
